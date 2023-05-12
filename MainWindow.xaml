@@ -52,13 +52,6 @@
         </StackPanel>
     </hc:Window.NonClientAreaContent>
     <DockPanel Margin="10">
-        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-            <!--<hc:ButtonGroup>
-                <RadioButton Content="简体中文" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=简体中文}"  />
-                <RadioButton Content="English" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=English}" />
-                <RadioButton Content="Japanese" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=Japanese}" />
-            </hc:ButtonGroup>-->
-        </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
             <ContentControl HorizontalAlignment="Center" Content="{DynamicResource Lang_AboutCopy}" />
             <ContentControl HorizontalAlignment="Center" Content="{DynamicResource Lang_AboutDesc}" />

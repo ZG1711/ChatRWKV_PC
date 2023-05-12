@@ -99,15 +99,14 @@ namespace ChatRWKV_PC.Views
 
                         Task.Run(() =>
                         {
-                            if (!File.Exists(current + "Run.py"))
-                            {
+                            
                                 Uri uri = new Uri("/Resources/PyFile/Run.py", UriKind.Relative);
                                 StreamResourceInfo info = Application.GetResourceStream(uri);
-                                using (var stream = new FileStream(current + "Run.py", FileMode.OpenOrCreate))
+                                using (var stream = new FileStream(current + "Run.py", FileMode.Create))
                                 {
                                     info.Stream.CopyTo(stream);
                                 }
-                            }
+                            
                         }),
                         Task.Run(() =>
                         {

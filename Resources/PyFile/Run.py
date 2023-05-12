@@ -1,7 +1,7 @@
 #自定义修改部分-start
-from http import client
+import time
 
-
+Language = 'Chinese'
 model_tokens = []
 model_state = None
 user = None
@@ -9,7 +9,7 @@ bot = None
 interface = None
 init_prompt = None
 def chat_code(MODEL_NAME,strategy = 'cpu fp32',RWKV_CUDA_ON = '0',CHAT_LANG = 'English'):
-    global user, bot, interface, init_prompt,model_tokens, model_state
+    global user, bot, interface, init_prompt,model_tokens, model_state,Language
     #自定义修改部分-end
     ########################################################################################################
     # The RWKV Language Model - https://github.com/BlinkDL/RWKV-LM
@@ -200,7 +200,7 @@ def chat_code(MODEL_NAME,strategy = 'cpu fp32',RWKV_CUDA_ON = '0',CHAT_LANG = 'E
         srv = 'dummy_server'
 
         msg = message.replace('\\n','\n').strip()
-
+        
         x_temp = GEN_TEMP
         x_top_p = GEN_TOP_P
         if ("-temp=" in msg):
@@ -217,14 +217,15 @@ def chat_code(MODEL_NAME,strategy = 'cpu fp32',RWKV_CUDA_ON = '0',CHAT_LANG = 'E
             x_temp = 5
         if x_top_p <= 0:
             x_top_p = 0
-    
+        msg = msg.strip()
+
         if msg == '+reset':
             out = load_all_stat('', 'chat_init')
             save_all_stat(srv, 'chat', out)
             reply_msg("Chat reset.")
             #自定义修改部分-start
-            client_socket.sendall('Chat reset.'.encode())
-            client_socket.sendall('----end----'.encode())
+            sendMsg('Chat reset.')
+            sendMsg('{----end----}')
             #自定义修改部分-end
             return
     
@@ -253,11 +254,12 @@ def chat_code(MODEL_NAME,strategy = 'cpu fp32',RWKV_CUDA_ON = '0',CHAT_LANG = 'E
                 save_all_stat(srv, 'gen_0', out)
 
             elif msg[:3].lower() == '+i ':
+                msg = msg[3:].strip().replace('\r\n','\n').replace('\n\n','\n')
                 new = f'''
 Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 # Instruction:
-{msg[3:].strip()}
+{msg}
 
 # Response:
 '''
@@ -291,7 +293,7 @@ Below is an instruction that describes a task. Write a response that appropriate
                     save_all_stat(srv, 'gen_0', out)
                 except:
                     #自定义修改部分-start
-                    client_socket.sendall('----end----'.encode())
+                    sendMsg('{----end----}')
                     #自定义修改部分-end
                     return
 
@@ -300,7 +302,7 @@ Below is an instruction that describes a task. Write a response that appropriate
                     out = load_all_stat(srv, 'gen_0')
                 except:
                     #自定义修改部分-start
-                    client_socket.sendall('----end----'.encode())
+                    sendMsg('{----end----}')
                     #自定义修改部分-end
                     return
 
@@ -334,7 +336,7 @@ Below is an instruction that describes a task. Write a response that appropriate
                 if '\ufffd' not in xxx: # avoid utf-8 display issues
                     #自定义修改部分-start
                     sendStr += xxx
-                    client_socket.sendall(xxx.encode())
+                    sendMsg(xxx)
                     #自定义修改部分-end
                     print(xxx, end='', flush=True)
                     out_last = begin + i + 1
@@ -352,11 +354,12 @@ Below is an instruction that describes a task. Write a response that appropriate
                     out = load_all_stat(srv, 'chat_pre')
                 except:
                     #自定义修改部分
-                    client_socket.sendall('----end----'.encode())
+                    sendMsg('{----end----}')
                     #
                     return
             else:
                 out = load_all_stat(srv, 'chat')
+                msg = msg.strip().replace('\r\n','\n').replace('\n\n','\n')
                 new = f"{user}{interface} {msg}\n\n{bot}{interface}"
                 # print(f'### add ###\n[{new}]')
                 out = run_rnn(pipeline.encode(new), newline_adj=-999999999)
@@ -400,8 +403,8 @@ Below is an instruction that describes a task. Write a response that appropriate
                 if '\ufffd' not in xxx: # avoid utf-8 display issues
                     #自定义修改部分
                     sendStr += xxx
-                    client_socket.sendall(xxx.encode())
-                    #
+                    sendMsg(xxx)
+                    #自定义修改部分-end
                     print(xxx, end='', flush=True)
                     out_last = begin + i + 1
             
@@ -425,7 +428,7 @@ Below is an instruction that describes a task. Write a response that appropriate
             # reply_msg(send_msg)
             save_all_stat(srv, 'chat', out)
         #自定义修改部分-start
-        client_socket.sendall('----end----'.encode())
+        sendMsg('{----end----}')
         #自定义修改部分-end
             
 
@@ -486,26 +489,20 @@ Below is an instruction that describes a task. Write a response that appropriate
     #自定义修改部分-start
     client_socket.sendall('1'.encode())
     while True:
-        total_data = b''
-        while True:
-            data = client_socket.recv(1024)
-            total_data += data
-            if not data:
-                print("客户端关闭了连接,即将退出",client_addr)
-                server_socket.close()
-                exit()
-            if len(data) < 1024:
-                break
+        recv_msg = receive()
         #格式化消息数据
-        msg = json.loads(total_data.decode())
+        msg = json.loads(recv_msg.decode())
+
         if msg['operation'] == 'send' and model != None:
+            if not msg['Language']:
+                Language = msg['Language']
             FREE_GEN_LEN = msg['token_count']
             GEN_TEMP = msg['temperature']
             GEN_TOP_P = msg['top_p']
             GEN_alpha_frequency = msg['alpha_frequency']
             GEN_alpha_presence = msg['alpha_presence']
-            print(f'{user}{interface}'+msg['ctx'])
-            on_message(msg['ctx'])
+            print(f'{user}{interface}{msg["ctx"]}')
+            on_message(msg["ctx"])
         elif msg['operation'] == 'status':
             client_socket.sendall('1'.encode())
         elif msg['operation'] == 'GetName':
@@ -514,9 +511,15 @@ Below is an instruction that describes a task. Write a response that appropriate
             model = None
             model_tokens = []
             model_state = None
-            print("已停止") 
+            if Language == 'Chinese':
+                print("已停止")
+            elif Language == 'English':
+                print("Stop")
+            elif Language == 'Japanes':
+                print("止まりました")
             client_socket.sendall('success'.encode())
             return
+        
     ######################################################################################################     
 
 import socket,json,traceback
@@ -525,51 +528,86 @@ HOST = 'localhost'  # 服务器主机地址
 PORT = 9999        # 服务器端口
 client_socket = None
 server_socket = None
+buffer_size = 1024
 def startServer():
-    global client_socket,server_socket
+    global client_socket,server_socket,Language,model,model_tokens,model_state
     # 创建 socket 对象，指定协议
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # 绑定IP和端口
     server_socket.bind((HOST,PORT))
     # 监听
     server_socket.listen()
-
-    print("等待客户端连接")
+    print("等待客户端连接/Waiting for connections/接続を待ちます")
     client_socket, client_addr = server_socket.accept()
         
     # 接收消息并处理
-    print("已连接:",client_addr)
-
+    print("connected:",client_addr)
     while True:
-        total_data = b''
-        #接收消息数据
-        while True:
-            data = client_socket.recv(1024)
-            total_data += data
-            if not data:
-                print("客户端关闭了连接,即将退出",client_addr)
-                server_socket.close()
-                exit()
-            if len(data) < 1024:
-                break
+        recv_msg = receive()
         #格式化消息数据
-        msg = json.loads(total_data.decode())
+        msg = json.loads(recv_msg.decode())
         if msg['operation'] == 'start':
             try:
                 _modelpath = msg['modelName']
                 _strategy = msg['strategy']
                 _RWKV_CUDA_ON = msg['RWKV_CUDA_ON']
                 _CHAT_LANG = msg['CHAT_LANG']
+                Language = msg['Language']
                 if not _RWKV_CUDA_ON:
                     _RWKV_CUDA_ON = '0'
-
+                if not Language:
+                    Language = 'English'
                 chat_code(_modelpath,_strategy,RWKV_CUDA_ON=_RWKV_CUDA_ON,CHAT_LANG=_CHAT_LANG) 
             except:
                 traceback.print_exc()
-                client_socket.sendall('-1'.encode())
+                model = None
+                model_tokens = []
+                model_state = None
+                sendMsg('{----end----}')
         elif msg['operation'] == 'status':
             client_socket.sendall('0'.encode())
+        elif msg['operation'] == 'stop':
+            model = None
+            model_tokens = []
+            model_state = None
+            if Language == 'Chinese':
+                print("已停止")
+            elif Language == 'English':
+                print("Stop")
+            elif Language == 'Japanes':
+                print("止まりました")
+            client_socket.sendall('success'.encode())
+            return
+def receive():
+    #优化socket连接传输数据
+    length = client_socket.recv(5)
+    client_socket.send(b'ready')    #给客户端返回接收长度成功的消息
+    length = int(length.decode())   #取得长度
 
+    recv_size = 0 #记录长度
+    recv_msg = b''
+
+    while recv_size < length:
+        data = client_socket.recv(buffer_size)
+        if not data:
+            if Language == 'Chinese':
+                print("客户端已关闭连接,将退出进程")
+            elif Language == 'English':
+                print("The client has closed the connection and will exit the process")
+            elif Language == 'Japanes':
+                print("クライアントは接続を閉じ,プロセスを終了します")
+            client_socket.close()
+            break;
+        recv_msg += data
+        recv_size += len(data)
+    return recv_msg
+
+def sendMsg(msg):
+    length = len(msg.encode())
+    client_socket.send((str(length)).encode())
+    responses = client_socket.recv(5)
+    if responses.decode() == 'ready':
+        client_socket.send(msg.encode())
 
 startServer()
 #自定义修改部分-end

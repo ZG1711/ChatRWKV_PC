@@ -154,10 +154,6 @@ namespace ChatRWKV_PC.ViewModels
             }
         }
         /// <summary>
-        /// 是否自动关闭命令行
-        /// </summary>
-        public static bool IsAutoCmd { get; set; } = Properties.Settings.Default.IsAutoCmd;
-        /// <summary>
         /// 是否开启加速
         /// 自动处理加速包的位置
         /// </summary>
@@ -183,50 +179,12 @@ namespace ChatRWKV_PC.ViewModels
                 }
                 else
                 {
-                    //清掉注释解除加速
-                    if (File.Exists("Python3.10/Lib/site-packages/rwkv/model.py"))
-                    {
-                        string[] lines = File.ReadAllLines("Python3.10/Lib/site-packages/rwkv/model.py");
-                        string[] writeLines = new string[lines.Length - 1];
-                        int j = 0;
-                        for (int i = 0; i < lines.Length; i++)
-                        {
-                            if (lines[i].Contains("import wkv_cuda"))
-                            {
-
-                                i += 1;
-                                while (!lines[i].Contains("@MyStatic"))
-                                {
-
-                                    if (string.IsNullOrEmpty(lines[i]))
-                                    {
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        writeLines[j] = lines[i].Replace("#", "");
-                                        i++; j++;
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                writeLines[j] = lines[i];
-                            }
-                            j++;
-                        }
-                        File.WriteAllLines("Python3.10/Lib/site-packages/rwkv/model.py", writeLines);
-                    }
+                    ClearSpeed();
                     _IsSpeed = false;
                 }
                 OnPropertyChanged(nameof(IsSpeed));
             }
         }
-        /// <summary>
-        /// 是否显示RWKV进程
-        /// </summary>
-        public bool ShowRWKV { get; set; } = Properties.Settings.Default.ShowRWKV;
         /// <summary>
         /// rwkv pip包当前安装版本
         /// </summary>
@@ -343,10 +301,6 @@ namespace ChatRWKV_PC.ViewModels
             }
         }
         /// <summary>
-        /// 系统字体列表
-        /// </summary>
-        public ObservableCollection<string> FontFamilys { get; set; }
-        /// <summary>
         /// 对话中发送者名字
         /// </summary>
         public string UserName
@@ -410,7 +364,6 @@ namespace ChatRWKV_PC.ViewModels
         /// 消息列表
         /// </summary>
         public ObservableCollection<ChatInfoModel> ChatInfoModels { get; set; } = new ObservableCollection<ChatInfoModel>();
-        public string Language { get => language; set => language = value; }
         /// <summary>
         /// 字数统计
         /// </summary>
@@ -432,7 +385,7 @@ namespace ChatRWKV_PC.ViewModels
                         string url = (string)param;
                         Task.Run(() =>
                         {
-                            if (!IsAutoCmd)
+                            if (!Settings.Default.IsAutoCmd)
                                 PipUtils.CreateType = "/k ";
                             else
                                 PipUtils.CreateType = "/c ";
@@ -461,17 +414,7 @@ namespace ChatRWKV_PC.ViewModels
             await Task.Run(() =>
             {
                 string downStr = currentDirectory + "Git/bin/git.exe clone https://github.com/BlinkDL/ChatRWKV " + currentDirectory + "ChatRWKV";
-                string arguments = downStr;
-                Process gitProcess = new Process();
-                gitProcess.StartInfo.FileName = "cmd";
-                if (!IsAutoCmd)
-                    gitProcess.StartInfo.Arguments = "/k " + arguments;
-                else
-                    gitProcess.StartInfo.Arguments = "/c " + arguments;
-                gitProcess.StartInfo.UseShellExecute = false;
-                gitProcess.StartInfo.CreateNoWindow = false;
-                gitProcess.Start();
-                gitProcess.WaitForExit();
+                OtherUtil.StartCmdProcess(Settings.Default.IsAutoCmd, downStr, true);
                 if (File.Exists("ChatRWKV/v2/chat.py"))
                 {
                     return;
@@ -494,19 +437,8 @@ namespace ChatRWKV_PC.ViewModels
             //强制更新RWKV
             await Task.Run(() =>
             {
-                string downStr = "cd ChatRWKV && " + currentDirectory + "Git/bin/git.exe fetch --all && " + currentDirectory + "Git/bin/git.exe reset --hard origin/main && " + currentDirectory + "Git/bin/git.exe pull";
-                Debug.WriteLine(downStr);
-                string arguments = downStr;
-                Process gitProcess = new Process();
-                gitProcess.StartInfo.FileName = "cmd";
-                if (!IsAutoCmd)
-                    gitProcess.StartInfo.Arguments = "/k " + arguments;
-                else
-                    gitProcess.StartInfo.Arguments = "/c " + arguments;
-                gitProcess.StartInfo.UseShellExecute = false;
-                gitProcess.StartInfo.CreateNoWindow = false;
-                gitProcess.Start();
-                gitProcess.WaitForExit();
+                string updateStr = "cd ChatRWKV && " + currentDirectory + "Git/bin/git.exe fetch --all && " + currentDirectory + "Git/bin/git.exe reset --hard origin/main && " + currentDirectory + "Git/bin/git.exe pull";
+                OtherUtil.StartCmdProcess(Settings.Default.IsAutoCmd, updateStr, true);
                 if (File.Exists("ChatRWKV/v2/chat.py"))
                 {
                     return;
@@ -529,10 +461,11 @@ namespace ChatRWKV_PC.ViewModels
             if (param == null)
                 return;
             string package = (string)param;
-            if (!IsAutoCmd)
+            if (!Settings.Default.IsAutoCmd)
                 PipUtils.CreateType = "/k ";
             else
                 PipUtils.CreateType = "/c ";
+            //需指定版本2.0目前不兼容
             if (package.Equals("torch"))
             {
                 UpgradeWindow upgrade = new UpgradeWindow(package, "https://download.pytorch.org/whl/cu117");
@@ -583,7 +516,7 @@ namespace ChatRWKV_PC.ViewModels
         {
             Task.Run(() =>
             {
-                if (!IsAutoCmd)
+                if (!Settings.Default.IsAutoCmd)
                     PipUtils.CreateType = "/k ";
                 else
                     PipUtils.CreateType = "/c ";
@@ -618,12 +551,7 @@ namespace ChatRWKV_PC.ViewModels
             Task.Run(() =>
             {
                 string arguments = string.Format(PipUtils.PyPath + "python.exe " + currentDirectory + "/ChatRWKV/v2/chat.py");
-                Process ChatPyProcess = new Process();
-                ChatPyProcess.StartInfo.FileName = "cmd";
-                ChatPyProcess.StartInfo.Arguments = "/k " + arguments;
-                ChatPyProcess.StartInfo.UseShellExecute = false;
-                ChatPyProcess.StartInfo.CreateNoWindow = false;
-                ChatPyProcess.Start();
+                OtherUtil.StartCmdProcess(Settings.Default.IsAutoCmd, arguments);
             });
         }, param =>
         {
@@ -632,7 +560,9 @@ namespace ChatRWKV_PC.ViewModels
             return true;
         });
         }
-
+        /// <summary>
+        /// 转换模型命令
+        /// </summary>
         public BtnCommand ConverterModelCommand { get => new BtnCommand(param =>
         {
             string modelName = ModelName;
@@ -658,39 +588,29 @@ namespace ChatRWKV_PC.ViewModels
             {
                 Directory.CreateDirectory("ConverterModel");
             }
-            Process process = new Process();
-            process.StartInfo.FileName = "cmd";
-            process.StartInfo.UseShellExecute = false;
             string args = string.Format("{0}python.exe convert_model.py --in {1} --out {2} --strategy \"{3}\"",
                 PipUtils.PyPath,
                 ModelName,
                 AppDomain.CurrentDomain.BaseDirectory + "ConverterModel/" + Path.GetFileName(modelName),
                 Strategy);
-            if (IsAutoCmd)
-                process.StartInfo.Arguments = "/c " + args;
-            else
-                process.StartInfo.Arguments = "/k " + args;
-            process.Start();
-            process.WaitForExit();
+            OtherUtil.StartCmdProcess(Settings.Default.IsAutoCmd, args);
         });
         }
 
         public BtnCommand SaveSettingsBtnCommand { get => new BtnCommand(param =>
         {
-            Properties.Settings.Default.ModelName = ModelName;
-            Properties.Settings.Default.Strategy = Strategy;
-            Properties.Settings.Default.TokenCount = TokenCount;
-            Properties.Settings.Default.Temperature = Temperature;
-            Properties.Settings.Default.TopP = TopP;
-            Properties.Settings.Default.PresencePenalty = PresencePenalty;
-            Properties.Settings.Default.CountPenalty = CountPenalty;
-            Properties.Settings.Default.IsAutoCmd = IsAutoCmd;
-            Properties.Settings.Default.ShowRWKV = ShowRWKV;
-            Properties.Settings.Default.IsSpeed = IsSpeed;
-            Properties.Settings.Default.ChatLang = CHAT_LANG;
+            Settings.Default.ModelName = ModelName;
+            Settings.Default.Strategy = Strategy;
+            Settings.Default.TokenCount = TokenCount;
+            Settings.Default.Temperature = Temperature;
+            Settings.Default.TopP = TopP;
+            Settings.Default.PresencePenalty = PresencePenalty;
+            Settings.Default.CountPenalty = CountPenalty;
+            Settings.Default.IsSpeed = IsSpeed;
+            Settings.Default.ChatLang = CHAT_LANG;
             try
             {
-                Properties.Settings.Default.Save();
+                Settings.Default.Save();
                 System.Windows.MessageBox.Show(Application.Current.FindResource("Lang_SaveSettingsSuccessMsg") as string);
             }
             catch
@@ -714,6 +634,8 @@ namespace ChatRWKV_PC.ViewModels
                         return;
                     }
                     RunStatus = 2;
+                    StartSocket();
+                    Thread.Sleep(Settings.Default.Socket_StartSleep);
                     if (RWKV_PROCESS_CLIENT == null)
                     {
                         try
@@ -729,29 +651,23 @@ namespace ChatRWKV_PC.ViewModels
                             return;
                         }
                     }
+                    //不限制超时时间
+                    RWKV_PROCESS_CLIENT.ReceiveTimeout = 0;
+                    int buffer_size = 1024;
                     JObject jsonObj = new JObject();
                     jsonObj["operation"] = "start";
-                    jsonObj["RWKV_CUDA_ON"] = IsSpeed ? "1" : "0";
+                    jsonObj["RWKV_CUDA_ON"] = Settings.Default.IsSpeed ? "1" : "0";
                     jsonObj["modelName"] = ModelName.Replace("\\", "/").Replace(".pth", "").Trim();
                     jsonObj["strategy"] = Strategy;
                     jsonObj["CHAT_LANG"] = CHAT_LANG;
-                    byte[] bytes = Encoding.UTF8.GetBytes(jsonObj.ToString());
-                    RWKV_PROCESS_CLIENT.Send(bytes);
-                    //接收数据
-                    byte[] buffer = new byte[1024];
-                    int length = RWKV_PROCESS_CLIENT.Receive(buffer);
-                    string responseData = Encoding.UTF8.GetString(buffer, 0, length);
-                    if (responseData.Equals("1"))
-                    {
+                    jsonObj["Language"] = Settings.Default.Language.Equals("简体中文") ? "Chinese" : Settings.Default.Language;
 
+                    if (SendMsgObject(RWKV_PROCESS_CLIENT, jsonObj).Equals("1"))
+                    {
+                        //获取prompt中设定的user和Bot
                         jsonObj = new JObject();
                         jsonObj["operation"] = "GetName";
-                        bytes = Encoding.UTF8.GetBytes(jsonObj.ToString());
-                        RWKV_PROCESS_CLIENT.Send(bytes);
-                        //接收数据
-                        buffer = new byte[1024];
-                        length = RWKV_PROCESS_CLIENT.Receive(buffer);
-                        responseData = Encoding.UTF8.GetString(buffer, 0, length);
+                        string responseData = SendMsgObject(RWKV_PROCESS_CLIENT, jsonObj);
                         string[] names = responseData.Split(",");
                         if (names.Length == 2)
                         {
@@ -761,7 +677,11 @@ namespace ChatRWKV_PC.ViewModels
                         RunStatus = 1;
                     }
                     else
+                    {
+                        RWKV_PROCESS_CLIENT = null;
+                        IsRunPyProcess = false;
                         RunStatus = -1;
+                    }
                 }
             });
         },param =>
@@ -781,23 +701,40 @@ namespace ChatRWKV_PC.ViewModels
             button.IsEnabled = false;
             JObject jsonObj = new JObject();
             jsonObj["operation"] = "stop";
-            byte[] bytes = Encoding.UTF8.GetBytes(jsonObj.ToString());
-            RWKV_PROCESS_CLIENT.Send(bytes);
             await Task.Run(() =>
             {
-                //接收数据
-                byte[] buffer = new byte[1024];
-                int length = RWKV_PROCESS_CLIENT.Receive(buffer);
-                string responseData = Encoding.UTF8.GetString(buffer, 0, length);
-                if (responseData.Equals("success"))
-                    RunStatus = 0;
+                string msg = "";
+                //只允许启动单个socket进程,所以这里就这么处理可以了
+                if (RunStatus == 1)
+                    msg = SendMsgObject(RWKV_PROCESS_CLIENT, jsonObj);
+                else if (RwkvCppRunStatus == 1)
+                    msg = SendMsgObject(RWKV_CPP_PROCESS_CLIENT, jsonObj);
                 else
+                    return;
+                if (msg.Equals("success"))
+                {
+                    RunStatus = 0;
+                    RwkvCppRunStatus = 0;
+                }
+                else if (string.IsNullOrEmpty(msg))
+                {
+                    RunStatus = 0;
+                    RwkvCppRunStatus = 0;
+                }
+                else
+                {
                     RunStatus = -1;
+                    RwkvCppRunStatus = 0;
+                }
+
             });
-            if (RunStatus == 0)
+            if (RunStatus == 0 || RwkvCppRunStatus == 0)
             {
                 button.IsEnabled = true;
             }
+            //直接干进程
+            CloseRwkvProcess();
+            CloseRwkvCppProcess();
         });
         }
         /// <summary>
@@ -808,24 +745,35 @@ namespace ChatRWKV_PC.ViewModels
             get => new BtnCommand(async param =>
             {
                 Button btn = (Button)param;
-                if (RunStatus != 1)
+                Socket? socket = null;
+                if (RunStatus == 1)
+                {
+                    socket = RWKV_PROCESS_CLIENT;
+                }
+                else if (RwkvCppRunStatus == 1)
+                {
+                    socket = RWKV_CPP_PROCESS_CLIENT;
+                }
+                else
                 {
                     System.Windows.MessageBox.Show(Application.Current.FindResource("Lang_NotRunMsg") as string);
                     return;
                 }
-                if (string.IsNullOrEmpty(InputMsg) || RWKV_PROCESS_CLIENT == null || (InputMsg.IndexOf("+++") != -1 && ChatInfoModels.Count == 0))
+
+                if (string.IsNullOrEmpty(InputMsg) || socket == null || (InputMsg.IndexOf("+++") != -1 && ChatInfoModels.Count == 0))
                 {
                     return;
                 }
+                IsSend = true;
                 btn.IsEnabled = false;
-                
+
                 //特殊处理+++指令
                 if (InputMsg.IndexOf("+++") == -1)
                 {
                     ChatInfoModels.Add(new ChatInfoModel()
                     {
                         Role = HandyControl.Data.ChatRoleType.Sender,
-                        Message = inputMsg,
+                        Message = InputMsg,
                         ImagesBackground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#c75d40")),
                         Name = UserName
                     });
@@ -847,7 +795,7 @@ namespace ChatRWKV_PC.ViewModels
                     JObject jsonObj = new JObject();
                     jsonObj["operation"] = "send";
                     jsonObj["token_count"] = int.Parse(TokenCount);
-                    
+                    jsonObj["Language"] = Settings.Default.Language.Equals("简体中文") ? "Chinese" : Settings.Default.Language;
                     int index = ChatInfoModels.Count - 1;
                     //要传递的参数
                     jsonObj["ctx"] = InputMsg;
@@ -855,42 +803,22 @@ namespace ChatRWKV_PC.ViewModels
                     jsonObj["top_p"] = float.Parse(TopP);
                     jsonObj["alpha_frequency"] = float.Parse(CountPenalty);
                     jsonObj["alpha_presence"] = float.Parse(PresencePenalty);
-                    byte[] bytes = Encoding.UTF8.GetBytes(jsonObj.ToString());
-                    RWKV_PROCESS_CLIENT.Send(bytes);
+
                     //处理续写的指令,其它指令需要处理可以优化这部分
                     if (InputMsg.Contains("+gen"))
                     {
                         ChatInfoModels[index].Message = InputMsg.Replace("+gen ", "");
                     }
-                    index = ChatInfoModels.Count - 1;
-                    while (true)
-                    {
-                        try
-                        {
-                            //接收数据
-                            byte[] buffer = new byte[1024];
-                            int length = RWKV_PROCESS_CLIENT.Receive(buffer);
-                            string responseData = Encoding.UTF8.GetString(buffer, 0, length);
-                            //遇到结束符跳出
-                            if (responseData.Equals("----end----"))
-                            {
-                                ChatInfoModels[index].Message = ChatInfoModels[index].Message.Replace("\n\n", "");
-                                OutCount += ChatInfoModels[index].Message.TrimStart().Length;
-                                break;
-                            }
-                            else
-                            {
-                                OutMsg += responseData;
-                                ChatInfoModels[index].Message += responseData;
-                            }
-                        }
-                        catch
-                        {
-                            break;
-                        }
 
+                    InputMsg = "";
+                    if (SendMsgObject(socket, jsonObj, true).Equals("SendBack"))
+                    {
+                        index = ChatInfoModels.Count - 1;
+
+                        MsgReceive(socket, ChatInfoModels[index]);
                     }
                 });
+                IsSend = false;
                 btn.IsEnabled = true;
             });
         }
@@ -902,16 +830,28 @@ namespace ChatRWKV_PC.ViewModels
             get => new BtnCommand(async param =>
             {
                 Button btn = (Button)param;
-                if (RunStatus != 1)
+                Socket? socket = null;
+                if (RunStatus == 1)
+                {
+                    socket = RWKV_PROCESS_CLIENT;
+                }
+                else if (RwkvCppRunStatus == 1)
+                {
+                    socket = RWKV_CPP_PROCESS_CLIENT;
+                }
+                else
                 {
                     System.Windows.MessageBox.Show(Application.Current.FindResource("Lang_NotRunMsg") as string);
                     return;
                 }
-                if (string.IsNullOrEmpty(InputMsg) || RWKV_PROCESS_CLIENT == null || (InputMsg.IndexOf("+++") != -1 && ChatInfoModels.Count == 0))
+
+                if (string.IsNullOrEmpty(InputMsg) || socket == null || (InputMsg.IndexOf("+++") != -1 && ChatInfoModels.Count == 0))
                 {
                     return;
                 }
+                IsSend = true;
                 btn.IsEnabled = false;
+                IsSend = true;
                 //批量处理要输入的消息
                 string[] inputs = InputMsg.Split("\n");
                 //发送消息部分代码
@@ -944,7 +884,7 @@ namespace ChatRWKV_PC.ViewModels
                         JObject jsonObj = new JObject();
                         jsonObj["operation"] = "send";
                         jsonObj["token_count"] = int.Parse(TokenCount);
-
+                        jsonObj["Language"] = Settings.Default.Language.Equals("简体中文") ? "Chinese" : Settings.Default.Language;
                         int index = ChatInfoModels.Count - 1;
                         //要传递的参数
                         jsonObj["ctx"] = sendMsg;
@@ -952,44 +892,21 @@ namespace ChatRWKV_PC.ViewModels
                         jsonObj["top_p"] = float.Parse(TopP);
                         jsonObj["alpha_frequency"] = float.Parse(CountPenalty);
                         jsonObj["alpha_presence"] = float.Parse(PresencePenalty);
-                        byte[] bytes = Encoding.UTF8.GetBytes(jsonObj.ToString());
-                        RWKV_PROCESS_CLIENT.Send(bytes);
                         //处理续写的指令,其它指令需要处理可以优化这部分
                         if (InputMsg.Contains("+gen"))
                         {
                             ChatInfoModels[index].Message = InputMsg.Replace("+gen ", "");
                         }
-                        index = ChatInfoModels.Count - 1;
-                        while (true)
+                        if (SendMsgObject(socket, jsonObj, true).Equals("SendBack"))
                         {
-                            try
-                            {
-                                //接收数据
-                                byte[] buffer = new byte[1024];
-                                int length = RWKV_PROCESS_CLIENT.Receive(buffer);
-                                string responseData = Encoding.UTF8.GetString(buffer, 0, length);
-                                //遇到结束符跳出
-                                if (responseData.Equals("----end----"))
-                                {
-                                    ChatInfoModels[index].Message = ChatInfoModels[index].Message.Replace("\n\n", "");
-                                    OutCount += ChatInfoModels[index].Message.TrimStart().Length;
-                                    break;
-                                }
-                                else
-                                {
-                                    OutMsg += responseData;
-                                    ChatInfoModels[index].Message += responseData;
-                                }
-                            }
-                            catch
-                            {
-                                break;
-                            }
+                            index = ChatInfoModels.Count - 1;
 
+                            MsgReceive(socket, ChatInfoModels[index]);
                         }
                     }
 
                 });
+                IsSend = false;
                 btn.IsEnabled = true;
             });
         }
@@ -1099,15 +1016,6 @@ namespace ChatRWKV_PC.ViewModels
         public MainViewModel()
         {
             GetLibVersion();
-            FontFamilys = GetSystemFontFamilys();
-            Task.Run(() =>
-            {
-                while (!IsRunPyProcess)
-                {
-                    StartSocket();
-                    Thread.Sleep(100);
-                }
-            });
         }
         ~MainViewModel()
         {
@@ -1125,31 +1033,6 @@ namespace ChatRWKV_PC.ViewModels
             }
         }
 
-        /// <summary>
-        /// 获取系统字体
-        /// </summary>
-        /// <returns></returns>
-        public ObservableCollection<string> GetSystemFontFamilys()
-        {
-            var list = new ObservableCollection<string>();
-            foreach (FontFamily family in Fonts.SystemFontFamilies)
-            {
-                LanguageSpecificStringDictionary _fontDic = family.FamilyNames;
-                if (_fontDic.ContainsKey(XmlLanguage.GetLanguage("zh-cn")))
-                {
-                    string _fontName = null;
-                    if (_fontDic.TryGetValue(XmlLanguage.GetLanguage("zh-cn"), out _fontName))
-                    {
-                        list.Add(_fontName);
-                    }
-                }
-                else
-                {
-                    list.Add(family.ToString());
-                }
-            }
-            return list;
-        }
         /// <summary>
         /// 查询依赖包信息
         /// </summary>
@@ -1244,23 +1127,18 @@ namespace ChatRWKV_PC.ViewModels
                 else
                 {
                     IsRunPyProcess = true;
+                    //启动软件是开启加速不会自动检查是否将model.py的代码注释
+                    //所以在这再做一次检查处理
+                    if (IsSpeed)
+                    {
+                        Wkv_CUDA();
+                        if (File.Exists("Python3.10/Lib/site-packages/rwkv/model.py"))
+                        {
+                            SetSpeed();
+                        }
+                    }
                     string arguments = string.Format(PipUtils.PyPath + "python.exe Run.py");
-                    PyProcess = new Process();
-                    PyProcess.StartInfo.FileName = "cmd";
-                    if (!IsAutoCmd)
-                        PyProcess.StartInfo.Arguments = "/k " + arguments;
-                    else
-                        PyProcess.StartInfo.Arguments = "/c " + arguments;
-                    PyProcess.StartInfo.UseShellExecute = false;
-                    if (ShowRWKV)
-                    {
-                        PyProcess.StartInfo.CreateNoWindow = false;
-                    }
-                    else
-                    {
-                        PyProcess.StartInfo.CreateNoWindow = true;
-                    }
-                    PyProcess.Start();
+                    PyProcess = OtherUtil.StartCmdProcess(Settings.Default.IsAutoCmd, arguments, isShow: Settings.Default.ShowRWKV);
                 }
             }
         }
@@ -1281,37 +1159,36 @@ namespace ChatRWKV_PC.ViewModels
                     try
                     {
                         int number = int.Parse(Regex.Replace(name, @"[^0-9]+", ""));
+                        Uri uri = null;
                         if (number > 0 && number < 2000)
                         {
-                            Uri uri = new Uri("/Resources/PyFile/wkv_cuda10.pyd", UriKind.Relative);
-                            StreamResourceInfo info = Application.GetResourceStream(uri);
-                            using (var stream = new FileStream("Python3.10/Lib/site-packages/wkv_cuda.pyd", FileMode.OpenOrCreate))
-                            {
-                                info.Stream.CopyTo(stream);
-                            }
+                            uri = new Uri("/Resources/PyFile/wkv_cuda10.pyd", UriKind.Relative);
                         }
                         else if (number > 2000 && number < 3000)
                         {
-                            Uri uri = new Uri("/Resources/PyFile/wkv_cuda20.pyd", UriKind.Relative);
-                            StreamResourceInfo info = Application.GetResourceStream(uri);
-                            using (var stream = new FileStream("Python3.10/Lib/site-packages/wkv_cuda.pyd", FileMode.OpenOrCreate))
-                            {
-                                info.Stream.CopyTo(stream);
-                            }
+                            uri = new Uri("/Resources/PyFile/wkv_cuda20.pyd", UriKind.Relative);
+                        }
+                        else if (number > 3000 && number < 4000)
+                        {
+                            uri = new Uri("/Resources/PyFile/wkv_cuda3+.pyd", UriKind.Relative);
+                        }
+                        else if (number > 4000 && number < 5000)
+                        {
+                            uri = new Uri("/Resources/PyFile/wkv_cuda3+.pyd", UriKind.Relative);
                         }
                         else
                         {
-                            Uri uri = new Uri("/Resources/PyFile/wkv_cuda3+.pyd", UriKind.Relative);
-                            StreamResourceInfo info = Application.GetResourceStream(uri);
-                            using (var stream = new FileStream("Python3.10/Lib/site-packages/wkv_cuda.pyd", FileMode.OpenOrCreate))
-                            {
-                                info.Stream.CopyTo(stream);
-                            }
+                            uri = new Uri("/Resources/PyFile/wkv_cuda10.pyd", UriKind.Relative);
+                        }
+                        StreamResourceInfo info = Application.GetResourceStream(uri);
+                        using (var stream = new FileStream("Python3.10/Lib/site-packages/wkv_cuda.pyd", FileMode.OpenOrCreate))
+                        {
+                            info.Stream.CopyTo(stream);
                         }
                     }
                     catch
                     {
-                        Uri uri = new Uri("/Resources/PyFile/wkv_cuda3+.pyd", UriKind.Relative);
+                        Uri uri = new Uri("/Resources/PyFile/wkv_cuda10.pyd", UriKind.Relative);
                         StreamResourceInfo info = Application.GetResourceStream(uri);
                         using (var stream = new FileStream("Python3.10/Lib/site-packages/wkv_cuda.pyd", FileMode.OpenOrCreate))
                         {
@@ -1320,6 +1197,276 @@ namespace ChatRWKV_PC.ViewModels
                     }
                 }
 
+            }
+        }
+        private string cppModelName = Settings.Default.CppModelName;
+        private string promptType = Settings.Default.RwkvCpp_PromptType;
+        private string quantizeFormat = Settings.Default.QuantizeFormat;
+        private bool isRwkvCppRun = false;
+        private bool isSend = false;
+        private int rwkvCppRunStatus = 0;
+
+        public int RwkvCppRunStatus
+        {
+            get => rwkvCppRunStatus;
+            set
+            {
+                rwkvCppRunStatus = value;
+                OnPropertyChanged(nameof(RwkvCppRunStatus));
+            }
+        }
+
+        public Process? RwkvCppProcess { get; set; } = null;
+        public Socket? RWKV_CPP_PROCESS_CLIENT { get; set; } = null;
+
+        public bool IsRwkvCppRun
+        {
+            get => isRwkvCppRun;
+            set
+            {
+                isRwkvCppRun = value;
+                OnPropertyChanged(nameof(IsRwkvCppRun));
+            }
+        }
+        public bool IsSend
+        {
+            get => isSend;
+            set
+            {
+                isSend = value;
+                OnPropertyChanged(nameof(IsSend));
+            }
+        }
+        public string CppModelName
+        {
+            get => cppModelName;
+            set
+            {
+                cppModelName = value;
+                OnPropertyChanged("CppModelName");
+            }
+        }
+        public string PromptType
+        {
+            get => promptType;
+            set
+            {
+                promptType = value;
+                OnPropertyChanged(nameof(PromptType));
+            }
+        }
+        public string QuantizeFormat
+        {
+            get => quantizeFormat;
+            set
+            {
+                quantizeFormat = value;
+                OnPropertyChanged(nameof(QuantizeFormat));
+            }
+        }
+        /// 接受消息
+        /// </summary>
+        /// <param name="chatInfoModel">聊天对象类</param>
+        /// <param name="endStr">停止符</param>
+        public void MsgReceive(Socket socket, ChatInfoModel chatInfoModel, string endStr = "{----end----}")
+        {
+            int buffer_size = 1024;
+            try
+            {
+                socket.ReceiveTimeout = Settings.Default.Socket_RecvTimeout;
+                while (true)
+                {
+
+                    //先接受服务端发过来的长度
+                    byte[] lengthBuffer = new byte[buffer_size];
+                    socket.Receive(lengthBuffer);
+                    int length = int.Parse(Encoding.UTF8.GetString(lengthBuffer, 0, buffer_size));
+                    //告诉服务端已经接收到了长度
+                    socket.Send(Encoding.UTF8.GetBytes("ready"));
+                    //接受指定长度的数据
+                    int recv_size = 0;
+                    byte[] bytes = new byte[length];
+                    while (recv_size < length)
+                    {
+                        socket.Receive(bytes);
+                        recv_size += bytes.Length;
+                    }
+
+                    string responseData = Encoding.UTF8.GetString(bytes, 0, length);
+                    //遇到停止符后处理个别操作
+                    if (responseData.Equals(endStr))
+                    {
+                        chatInfoModel.Message = chatInfoModel.Message.Replace("\n\n", "");
+                        break;
+                    }
+                    else
+                    {
+                        chatInfoModel.Message += responseData;
+                        if (!responseData.Equals("\n"))
+                            OutCount += responseData.Length;
+                    }
+
+                }
+            }
+            catch (SocketException)
+            {
+
+            }
+
+        }
+        /// <summary>
+        /// 清除加速
+        /// </summary>
+        public void ClearSpeed()
+        {
+            //清掉注释解除加速
+            if (File.Exists("Python3.10/Lib/site-packages/rwkv/model.py"))
+            {
+                string[] lines = File.ReadAllLines("Python3.10/Lib/site-packages/rwkv/model.py");
+                string[] writeLines = new string[lines.Length - 1];
+                int j = 0;
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    //检测到相关行就开始处理
+                    if (lines[i].Contains("import wkv_cuda"))
+                    {
+
+                        i += 1;
+                        while (!lines[i].Contains("@MyStatic"))
+                        {
+
+                            if (string.IsNullOrEmpty(lines[i]))
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                //取消注释
+                                writeLines[j] = lines[i].Replace("#", "");
+                                i++; j++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //没找到会出现数组越界的情况,可以处理也可以不处理
+                        //在Task中会自动抛出异常,不影响程序运行
+                        try
+                        {
+                            writeLines[j] = lines[i];
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                    j++;
+                }
+                File.WriteAllLines("Python3.10/Lib/site-packages/rwkv/model.py", writeLines);
+            }
+        }
+        /// <summary>
+        /// 发送数据之前先发送长度
+        /// </summary>
+        /// <param name="sendObj">要发送的消息</param>
+        /// <returns></returns>
+        public bool SendMsgLength(JObject sendObj, Socket socket)
+        {
+            try
+            {
+                byte[] sendLength = Encoding.UTF8.GetBytes(sendObj.ToString());
+                socket.Send((Encoding.UTF8.GetBytes(sendLength.Length.ToString())));
+                byte[] buffer = new byte[5];
+                int length = socket.Receive(buffer);
+                string responseData = Encoding.UTF8.GetString(buffer, 0, length);
+                if (responseData.Equals("ready"))
+                    return true;
+                else
+                    return false;
+            }
+            catch (SocketException)
+            {
+                return false;
+            }
+
+        }
+        /// <summary>
+        /// 发送json对象至socket服务端
+        /// </summary>
+        /// <param name="sendObj">要发送的json对象</param>
+        /// <param name="isSendBack">是否发送后直接返回</param>
+        /// <returns>
+        /// 空字符,服务端接收数据长度失败
+        /// SendBack,不在本函数中处理服务端返回的数据
+        /// 其它字符串,在本函数中处理服务端返回的数据并返回字符串
+        /// </returns>
+        public string SendMsgObject(Socket socket, JObject sendObj, bool isSendBack = false)
+        {
+            int buffer_size = 1024;
+            //确定数据已经发送出去
+            try
+            {
+                if (SendMsgLength(sendObj, socket))
+                {
+                    byte[] bytes = Encoding.UTF8.GetBytes(sendObj.ToString());
+                    socket.Send(bytes);
+                    if (isSendBack)
+                    {
+                        return "SendBack";
+                    }
+                    else
+                    {
+                        byte[] buffer = new byte[buffer_size];
+                        int length = socket.Receive(buffer);
+                        string responseData = Encoding.UTF8.GetString(buffer, 0, length);
+                        return responseData;
+                    }
+
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch (SocketException)
+            {
+                return string.Empty;
+            }
+        }
+        public void CloseRwkvProcess()
+        {
+            if (PyProcess != null)
+            {
+                PyProcess.Kill();
+                PyProcess.CloseMainWindow();
+                PyProcess.Close();
+                PyProcess.Dispose();
+                PyProcess = null;
+                IsRunPyProcess = false;
+            }
+            if (RWKV_PROCESS_CLIENT != null)
+            {
+                RWKV_PROCESS_CLIENT.Close();
+                RWKV_PROCESS_CLIENT.Dispose();
+                RWKV_PROCESS_CLIENT = null;
+            }
+        }
+        public void CloseRwkvCppProcess()
+        {
+            if (RwkvCppProcess != null)
+            {
+                RwkvCppProcess.Kill();
+                RwkvCppProcess.CloseMainWindow();
+                RwkvCppProcess.Close();
+                RwkvCppProcess.Dispose();
+                RwkvCppProcess = null;
+                IsRwkvCppRun = false;
+            }
+            if (RWKV_CPP_PROCESS_CLIENT != null)
+            {
+                RWKV_CPP_PROCESS_CLIENT.Close();
+                RWKV_CPP_PROCESS_CLIENT.Dispose();
+                RWKV_CPP_PROCESS_CLIENT = null;
             }
         }
     }

@@ -26,12 +26,6 @@ namespace ChatRWKV_PC.Utils
 
         static readonly string PySwithSourceStr = PyPath + "python.exe -m pip config set global.index-url ";
 
-
-        static PipUtils() 
-        {
-            Debug.WriteLine(PyPath);
-        }
-
         public static void SwithSource(string url)
         {
             Process? process = new Process();

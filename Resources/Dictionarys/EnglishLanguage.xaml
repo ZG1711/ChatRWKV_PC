@@ -16,7 +16,7 @@
     <sys:String x:Key="Lang_GEN_alpha_frequency">GEN_alpha_frequency</sys:String>
     <sys:String x:Key="Lang_AutoCloseCmd">Automatically close CMD</sys:String>
     <sys:String x:Key="Lang_GPU_Turbo">GPU Turbo</sys:String>
-    <sys:String x:Key="Lang_ShowRWKV">Show RWKV process(Save and Restart)</sys:String>
+    <sys:String x:Key="Lang_ShowRWKV">Show RWKV process(Restarting software)</sys:String>
     <sys:String x:Key="Lang_LibsInfo">Dependency package information:</sys:String>
     <sys:String x:Key="Lang_CurrentVersion">CVersion:</sys:String>
     <sys:String x:Key="Lang_LastVersion">LVersion:</sys:String>
@@ -75,7 +75,7 @@ Source code need to modify their own chat.py file, this software can be started 
     <sys:String x:Key="Lang_Output">Output</sys:String>
     <sys:String x:Key="Lang_Input">Input</sys:String>
     <sys:String x:Key="Lang_NotRunMsg">Not running ChatRWKV</sys:String>
-    <sys:String x:Key="Lang_SendMessage">Send(F5)</sys:String>
+    <sys:String x:Key="Lang_SendMessage">Send(Enter)</sys:String>
     <sys:String x:Key="Lang_BatchSendMessage">BatchSend(F1)</sys:String>
     <sys:String x:Key="Lang_CommandDesc">CommandDesc</sys:String>
     <sys:String x:Key="Lang_SaveRecord">SaveRecord</sys:String>
@@ -98,6 +98,36 @@ Source code need to modify their own chat.py file, this software can be started 
     <sys:String x:Key="Lang_SaveErrorMsg">save failed</sys:String>
     <sys:String x:Key="Lang_NotInstall">not installed</sys:String>
     <sys:String x:Key="Lang_NotRWKVLibMsg">Acceleration cannot be enabled without rwkv dependencies！</sys:String>
-    <sys:String x:Key="Lang_SaveSettingsSuccessMsg">saved</sys:String>
+    <sys:String x:Key="Lang_SaveSettingsSuccessMsg">Saved</sys:String>
     <sys:String x:Key="Lang_OutCountTextBlock">Output Count：</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTitle">Software setting</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Basic">Basic Setting</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Language">Language：</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_SoftFont">Font</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV">ChatRWKV Settings</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp">RWKV.cpp Settings</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstruction">CPU instruction</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX">AVX</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX2">AVX2</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX512">AVX512</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionCompile">Yourself compile</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowCheckBox_RWKV_cpp_ShowProces">Show rwkv.cpp Process</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowShow_rwkv_cpp_Proces">Show rwkv.cpp process</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket">Socket Settings</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket_StartSleep">Start Sleep(Defaul 3 seconds)</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowSocket_Socket_Recv_TimeOut">Dialogue timeout(millisecond):</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">Get Strategy</sys:String>
+
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE">PROMPT_TYPE</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_QA">Q&amp;A</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_Chat">Chat</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_Quantize_Format">Quantization parameter</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Quantize">Quantization Model</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Run">Start RWKV.cpp</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Stop">Stop RWKV.cpp</sys:String>
 </ResourceDictionary>

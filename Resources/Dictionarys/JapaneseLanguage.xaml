@@ -16,7 +16,7 @@
     <sys:String x:Key="Lang_GEN_alpha_frequency">GEN_alpha_frequency</sys:String>
     <sys:String x:Key="Lang_AutoCloseCmd">コマンドラインを自動的に閉じる</sys:String>
     <sys:String x:Key="Lang_GPU_Turbo">加速する</sys:String>
-    <sys:String x:Key="Lang_ShowRWKV">RWKV 表示（リスタートソフトセーブ）</sys:String>
+    <sys:String x:Key="Lang_ShowRWKV">RWKV 表示（ソフトウェアを再起動します）</sys:String>
     <sys:String x:Key="Lang_LibsInfo">依存パッケージ情報:</sys:String>
     <sys:String x:Key="Lang_CurrentVersion">現行版:</sys:String>
     <sys:String x:Key="Lang_LastVersion">最新バージョン:</sys:String>
@@ -73,7 +73,7 @@ Python版怠け者バッグ：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com
     <sys:String x:Key="Lang_Output">メッセージ域</sys:String>
     <sys:String x:Key="Lang_Input">ユーザ入力域</sys:String>
     <sys:String x:Key="Lang_NotRunMsg">稼働していません ChatRWKV</sys:String>
-    <sys:String x:Key="Lang_SendMessage">発送(F5)</sys:String>
+    <sys:String x:Key="Lang_SendMessage">発送(Enter)</sys:String>
     <sys:String x:Key="Lang_BatchSendMessage">大量発送です(F1)</sys:String>
     <sys:String x:Key="Lang_CommandDesc">命令説明です</sys:String>
     <sys:String x:Key="Lang_SaveRecord">会話を保存します</sys:String>
@@ -99,4 +99,34 @@ Python版怠け者バッグ：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com
     <sys:String x:Key="Lang_NotRWKVLibMsg">rwkv依存パケットなしでは加速できません！</sys:String>
     <sys:String x:Key="Lang_SaveSettingsSuccessMsg">保存済みです</sys:String>
     <sys:String x:Key="Lang_OutCountTextBlock">出力文字の総数です:：</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTitle">ソフトウェア設定です</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Basic">基本的な設定です</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Language">ソフトウェア言語です：</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_SoftFont">ソフトフォントです</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV">ChatRWKV備え付け</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp">RWKV.cpp備え付け</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstruction">CPU命令選択です</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX">AVX</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX2">AVX2</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX512">AVX512</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionCompile">自分でコンパイルします</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowShow_rwkv_cpp_Proces">ディスプレイrwkv.cpp過程</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket">Socket備え付け</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket_StartSleep">起動遅延(デフォルト3秒)です。</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowSocket_Socket_Recv_TimeOut">タイムアウト(ミリ秒)です:</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">本机Strategy</sys:String>
+
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE">PROMPT_TYPE</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_QA">問答</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_Chat">かんだんする</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_Quantize_Format">量子化パラメータです</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Quantize">量子化モデルです</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Run">起動RWKV.cpp</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Stop">ストップRWKV.cpp</sys:String>
+
 </ResourceDictionary>

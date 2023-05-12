@@ -4,6 +4,8 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="Lang_MainTitle">ChatRWKV桌面版</sys:String>
     <sys:String x:Key="Lang_About">关于</sys:String>
+    <sys:String x:Key="Lang_MainViewTab_RWKV">ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_MainViewTab_RWKV_cpp">RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_ConfigAreaName">配置区</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME">模型路径</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME_Placeholder">可拖入文件到本文本框自动处理</sys:String>
@@ -16,7 +18,7 @@
     <sys:String x:Key="Lang_GEN_alpha_frequency">GEN_alpha_frequency</sys:String>
     <sys:String x:Key="Lang_AutoCloseCmd">自动关闭命令行</sys:String>
     <sys:String x:Key="Lang_GPU_Turbo">开启加速</sys:String>
-    <sys:String x:Key="Lang_ShowRWKV">显示RWKV进程(需保存重启)</sys:String>
+    <sys:String x:Key="Lang_ShowRWKV">显示RWKV进程</sys:String>
     <sys:String x:Key="Lang_LibsInfo">依赖包信息:</sys:String>
     <sys:String x:Key="Lang_CurrentVersion">当前版本:</sys:String>
     <sys:String x:Key="Lang_LastVersion">最新版本:</sys:String>
@@ -31,6 +33,7 @@
     <sys:String x:Key="Lang_StartV2Chat">启动Chat.py</sys:String>
     <sys:String x:Key="Lang_ParamDescTitle">参数说明</sys:String>
     <TextBlock x:Key="Lang_ParamDesc" TextWrapping="Wrap" xml:space="preserve">
+参数说明:
 1.Strategy 具体看：<Hyperlink  NavigateUri="https://zhuanlan.zhihu.com/p/609154637" RequestNavigate="Hyperlink_RequestNavigate">@PENG Bo 开源1.5/3/7B中文小说模型：显存3G就能跑7B模型，几行代码即可调用</Hyperlink><TextBlock Padding="5,5,0,0"><Button  Content="查看策略" Padding="2" Command="{Binding ShowStrategyCommand}" /></TextBlock>
 2.CHAT_LANG 三个选项Chinese,English,Japanese根据模型选择,有不同的prompt
 3.FREE_GEN_LEN 每次生成的Token数,问答模式下设定无效果
@@ -76,8 +79,8 @@ Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879
     <sys:String x:Key="Lang_SaveConfig">保存设置</sys:String>
     <sys:String x:Key="Lang_Output">输出区</sys:String>
     <sys:String x:Key="Lang_Input">输入区</sys:String>
-    <sys:String x:Key="Lang_NotRunMsg">未启动ChatRWKV</sys:String>
-    <sys:String x:Key="Lang_SendMessage">发送(F5)</sys:String>
+    <sys:String x:Key="Lang_NotRunMsg">未启动Socket服务</sys:String>
+    <sys:String x:Key="Lang_SendMessage">发送(Enter)</sys:String>
     <sys:String x:Key="Lang_BatchSendMessage">批量发送(F1)</sys:String>
     <sys:String x:Key="Lang_CommandDesc">命令说明</sys:String>
     <sys:String x:Key="Lang_SaveRecord">保存对话</sys:String>
@@ -103,4 +106,33 @@ Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879
     <sys:String x:Key="Lang_NotRWKVLibMsg">没有rwkv依赖包，无法开启加速！</sys:String>
     <sys:String x:Key="Lang_SaveSettingsSuccessMsg">已保存</sys:String>
     <sys:String x:Key="Lang_OutCountTextBlock">输出字符总数：</sys:String>
+    
+    <sys:String x:Key="Lang_SettingsWindowTitle">软件设置</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Basic">基础设置</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Language">软件语言：</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_SoftFont">软件字体</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV">ChatRWKV设置</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp">RWKV.cpp设置</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstruction">CPU指令选择</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX">AVX</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX2">AVX2</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX512">AVX512</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionCompile">自行编译</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowCheckBox_RWKV_cpp_ShowProces">显示rwkv.cpp进程</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket">Socket设置</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket_StartSleep">启动延迟(默认3秒)</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowSocket_Socket_Recv_TimeOut">对话超时(毫秒):</sys:String>
+
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">本机Strategy</sys:String>
+
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE">PROMPT_TYPE</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_QA">问答</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_Chat">聊天</sys:String>
+    <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_Quantize_Format">量化参数</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Quantize">量化模型</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Run">运行RWKV.cpp</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Stop">停止RWKV.cpp</sys:String>
 </ResourceDictionary>

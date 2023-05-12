@@ -31,6 +31,8 @@ namespace ChatRWKV_PC.Views
         public UpgradeWindow(string package,string param = "")
         {
             InitializeComponent();
+            //初始化语言
+            OtherUtil.ChangeLanguage(Properties.Settings.Default.Language);
             ConfirmBtn.IsEnabled = false;
             PyPackageName = package;
             UrlPath = param;

@@ -1,0 +1,96 @@
+﻿<Window x:Class="ChatRWKV_PC.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatRWKV_PC.Views"
+        xmlns:viewModel="clr-namespace:ChatRWKV_PC.ViewModels"
+        mc:Ignorable="d"
+        Icon="/Resources/Images/icon.png"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:sy="http://schemas.syncfusion.com/wpf"
+        xmlns:converter="clr-namespace:ChatRWKV_PC.Converters"
+        Title="{DynamicResource Lang_SettingsWindowTitle}" Height="500" Width="700" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:SettingsViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <converter:String2BoolConverter x:Key="String2BoolConverter"/>
+        <converter:Int2BoolConverter x:Key="Int2BoolConverter"/>
+    </Window.Resources>
+    <StackPanel Margin="20">
+        <TextBlock FontSize="16" FontWeight="Bold" Text="{DynamicResource Lang_SettingsWindowTextBlock_Basic}" HorizontalAlignment="Center" />
+        <Separator Margin="0"  Width="160" HorizontalAlignment="Center" Height="3"/>
+        <Grid Margin="0,10">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" Text="{DynamicResource Lang_SettingsWindowTextBlock_Language}" />
+            <hc:ButtonGroup Grid.Column="1">
+                <RadioButton Content="简体中文" Command="{Binding LanguageChangeCommand}" CommandParameter="简体中文" IsChecked="{Binding Language,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=简体中文}"  />
+                <RadioButton Content="English" Command="{Binding LanguageChangeCommand}" CommandParameter="English" IsChecked="{Binding Language,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=English}" />
+                <RadioButton Content="Japanese" Command="{Binding LanguageChangeCommand}" CommandParameter="Japanese" IsChecked="{Binding Language,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Japanese}" />
+            </hc:ButtonGroup>
+        </Grid>
+        <Grid Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="IsAutoCmdCheckBox" Content="{DynamicResource Lang_AutoCloseCmd}"  IsChecked="{Binding IsAutoCmd,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{DynamicResource Lang_SettingsWindowTextBlock_SoftFont}" />
+            <ComboBox Grid.Column="3" Margin="10,0,0,0" ItemsSource="{Binding FontFamilys, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" x:Name="FontFamilysComboBox" SelectionChanged="FontFamilysComboBox_SelectionChanged" />
+        </Grid>
+        <TextBlock Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Text="{DynamicResource Lang_SettingsWindowTextBlock_RWKV}" />
+        <Separator Margin="0,0,0,10" HorizontalAlignment="Center"  Width="160" Height="3"/>
+        <Grid Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" Content="{DynamicResource Lang_ShowRWKV}" IsChecked="{Binding ShowRWKV, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        
+        <TextBlock Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Text="{DynamicResource Lang_SettingsWindowTextBlock_RWKV_cpp}" />
+        <Separator Margin="0,0,0,10" HorizontalAlignment="Center" Width="160" Height="3"/>
+        <Grid Margin="0,10">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" Text="{DynamicResource Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstruction}" />
+            <hc:ButtonGroup Grid.Column="1">
+                <RadioButton Content="{DynamicResource Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX}" Command="{Binding CpuRadioBtnCommand}" CommandParameter="0" IsChecked="{Binding CpuInstruction,Converter={StaticResource Int2BoolConverter},ConverterParameter=0}"  />
+                <RadioButton Content="{DynamicResource Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX2}" Command="{Binding CpuRadioBtnCommand}" CommandParameter="1" IsChecked="{Binding CpuInstruction,Converter={StaticResource Int2BoolConverter},ConverterParameter=1}"  />
+                <RadioButton Content="{DynamicResource Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionAVX512}" Command="{Binding CpuRadioBtnCommand}" CommandParameter="2" IsChecked="{Binding CpuInstruction,Converter={StaticResource Int2BoolConverter},ConverterParameter=2}" />
+                <RadioButton Content="{DynamicResource Lang_SettingsWindowTextBlock_RWKV_cpp_CpuInstructionCompile}" Command="{Binding CpuRadioBtnCommand}" CommandParameter="3" IsChecked="{Binding CpuInstruction,Converter={StaticResource Int2BoolConverter},ConverterParameter=3}" />
+            </hc:ButtonGroup>
+        </Grid>
+        <Grid Height="32">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" IsChecked="{Binding ShowRwkvCpp}"  Content="{DynamicResource Lang_SettingsWindowCheckBox_RWKV_cpp_ShowProces}" />
+        </Grid>
+        
+
+        <TextBlock Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Text="{DynamicResource Lang_SettingsWindowTextBlock_Socket}" />
+        <Separator Margin="0,0,0,10" HorizontalAlignment="Center"  Width="160" Height="3"/>
+        <Grid Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding SocketStartSleep}" Grid.Column="0" hc:TitleElement.Title="{DynamicResource Lang_SettingsWindowTextBlock_Socket_StartSleep}" Style="{StaticResource TextBoxExtend}" hc:InfoElement.TitlePlacement="Left"  />
+
+            <TextBox Text="{Binding SocketRecvTimeout}" Grid.Column="1" Margin="20,0" hc:TitleElement.Title="{DynamicResource Lang_SettingsWindowSocket_Socket_Recv_TimeOut}" Style="{StaticResource TextBoxExtend}" hc:InfoElement.TitlePlacement="Left"  />
+
+        </Grid>
+        
+            
+    </StackPanel>
+</Window>

@@ -15,7 +15,6 @@
         Title="{DynamicResource Lang_MainTitle}" Height="450" Width="800">
     <hc:Window.Resources>
         <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter"/>
-        <converter:LanguageToBoolConverter x:Key="LanguageToBoolConverter"/>
         <Style TargetType="Label" BasedOn="{StaticResource BaseStyle}">
             <Setter Property="FontSize" Value="11" />
         </Style>
@@ -34,15 +33,31 @@
         </Style>
     </hc:Window.Resources>
     <hc:Window.NonClientAreaContent>
-        <Button HorizontalAlignment="Right" Content="{DynamicResource Lang_About}" Style="{StaticResource ButtonCustom}" Command="{Binding ShowDialogWindowCommand}" CommandParameter="AboutWindow" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource ButtonCustom}"
+                    hc:BackgroundSwitchElement.MouseDownBackground="#F0F0F0"
+                    hc:BackgroundSwitchElement.MouseHoverBackground="#F0F0F0"
+                    Command="{Binding ShowDialogWindowCommand}" 
+                    CommandParameter="SettingsWindow"
+                    Padding="5,0">
+                <Image Source="Resources/Images/Settings.png" Height="20" Width="20" />
+            </Button>
+            <Button Content="{DynamicResource Lang_About}" 
+                    hc:BackgroundSwitchElement.MouseDownBackground="#F0F0F0"
+                    hc:BackgroundSwitchElement.MouseHoverBackground="#F0F0F0"
+                    Padding="5,0" 
+                    Style="{StaticResource ButtonCustom}" 
+                    Command="{Binding ShowDialogWindowCommand}" 
+                    CommandParameter="AboutWindow" />
+        </StackPanel>
     </hc:Window.NonClientAreaContent>
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-            <hc:ButtonGroup>
+            <!--<hc:ButtonGroup>
                 <RadioButton Content="简体中文" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=简体中文}"  />
                 <RadioButton Content="English" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=English}" />
                 <RadioButton Content="Japanese" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=Japanese}" />
-            </hc:ButtonGroup>
+            </hc:ButtonGroup>-->
         </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
             <ContentControl HorizontalAlignment="Center" Content="{DynamicResource Lang_AboutCopy}" />
@@ -120,6 +135,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Column="0"
                              Style="{StaticResource TextBoxExtend}"
@@ -127,13 +143,15 @@
                              hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_presence}"
                              hc:InfoElement.Placeholder=""
                              Height="35" VerticalAlignment="Center" Text="{Binding PresencePenalty}" />
-                    <TextBox Grid.Column="2"
+                    <TextBox Grid.Column="1"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.TitlePlacement="Left"
                              hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_frequency}"
                              hc:InfoElement.Placeholder=""
                              Margin="5,0,0,0"
                              Height="35" VerticalAlignment="Center" Text="{Binding CountPenalty}" />
+                    <CheckBox Grid.Column="2" Margin="5,0,0,0" Content="{DynamicResource Lang_GPU_Turbo}" IsChecked="{Binding IsSpeed}" />
+
                 </Grid>
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -142,10 +160,6 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox Grid.Column="0" x:Name="IsAutoCmdCheckBox" Content="{DynamicResource Lang_AutoCloseCmd}"  IsChecked="{Binding IsAutoCmd}" />
-                    <CheckBox Grid.Column="1" Margin="5,0,0,0" Content="{DynamicResource Lang_GPU_Turbo}" IsChecked="{Binding IsSpeed}" />
-                    <ComboBox Grid.Column="2" Margin="5,0,0,0" ItemsSource="{Binding FontFamilys, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" x:Name="FontFamilysComboBox" SelectionChanged="FontFamilysComboBox_SelectionChanged" />
-                    <CheckBox Grid.Column="3" Margin="5,0,0,0" Content="{DynamicResource Lang_ShowRWKV}" IsChecked="{Binding ShowRWKV}" />
                 </Grid>
                 <Label Content="{DynamicResource Lang_LibsInfo}"/>
                 <Grid>

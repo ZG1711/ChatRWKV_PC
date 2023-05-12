@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatRWKV_PC.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -25,6 +26,8 @@ namespace ChatRWKV_PC.Views
         public AboutWindow()
         {
             InitializeComponent();
+            //初始化语言
+            OtherUtil.ChangeLanguage(Properties.Settings.Default.Language);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ChatRWKV_PC.Commands;
+using ChatRWKV_PC.Utils;
 using ICSharpCode.AvalonEdit.Folding;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace ChatRWKV_PC.Views
         {
             DataContext = this;
             InitializeComponent();
+            //初始化语言
+            OtherUtil.ChangeLanguage(Properties.Settings.Default.Language);
             Title = "ChatRWKV/v2/chat.py";
             if (File.Exists("ChatRWKV/v2/chat.py"))
             {

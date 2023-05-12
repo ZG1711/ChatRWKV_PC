@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Company>梦想遥不可及网吧</Company>
+    <Authors>修计算机的网管</Authors>
+    <Copyright>© 2023 修计算机的网管</Copyright>
+    <AssemblyVersion>3.1.4</AssemblyVersion>
+    <FileVersion>3.1.4</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\Python3.10\**" />
+    <EmbeddedResource Remove="Resources\Python3.10\**" />
+    <None Remove="Resources\Python3.10\**" />
+    <Page Remove="Resources\Python3.10\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\icon.ico" />
+    <None Remove="Resources\Images\icon.png" />
+    <None Remove="Resources\Images\strategy.jpg" />
+    <None Remove="Resources\Other\20B_tokenizer.json" />
+    <None Remove="Resources\Other\Git.zip" />
+    <None Remove="Resources\Other\prompt.zip" />
+    <None Remove="Resources\Other\Python3.10.zip" />
+    <None Remove="Resources\PyFile\convert_model.py" />
+    <None Remove="Resources\PyFile\Run.py" />
+    <None Remove="Resources\PyFile\wkv_cuda10.pyd" />
+    <None Remove="Resources\PyFile\wkv_cuda20.pyd" />
+    <None Remove="Resources\PyFile\wkv_cuda3+.pyd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon.ico" />
+    <Resource Include="Resources\Images\icon.png" />
+    <Resource Include="Resources\Images\strategy.jpg" />
+    <Resource Include="Resources\PyFile\convert_model.py" />
+    <Resource Include="Resources\PyFile\wkv_cuda3+.pyd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+    <PackageReference Include="HandyControl" Version="3.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Management" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Other\20B_tokenizer.json" />
+    <Resource Include="Resources\Other\Git.zip" />
+    <Resource Include="Resources\Other\prompt.zip" />
+    <Resource Include="Resources\Other\Python3.10.zip" />
+    <Resource Include="Resources\PyFile\Run.py" />
+    <Resource Include="Resources\PyFile\wkv_cuda10.pyd" />
+    <Resource Include="Resources\PyFile\wkv_cuda20.pyd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

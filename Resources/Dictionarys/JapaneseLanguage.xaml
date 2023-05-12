@@ -1,0 +1,102 @@
+﻿<ResourceDictionary x:Class="ChatRWKV_PC.Resources.Dictionarys.JapaneseLanguage"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Lang_MainTitle">ChatRWKVデスクトップ版</sys:String>
+    <sys:String x:Key="Lang_About">について</sys:String>
+    <sys:String x:Key="Lang_ConfigAreaName">構成エリア</sys:String>
+    <sys:String x:Key="Lang_MODEL_NAME">モデル パス</sys:String>
+    <sys:String x:Key="Lang_MODEL_NAME_Placeholder">自動処理のために、ファイルをこのテキスト ボックスにドラッグできます</sys:String>
+    <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
+    <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>
+    <sys:String x:Key="Lang_FREE_GEN_LEN">FREE_GEN_LEN</sys:String>
+    <sys:String x:Key="Lang_GEN_TEMP">GEN_TEMP</sys:String>
+    <sys:String x:Key="Lang_GEN_TOP_P">GEN_TOP_P</sys:String>
+    <sys:String x:Key="Lang_GEN_alpha_presence">GEN_alpha_presence</sys:String>
+    <sys:String x:Key="Lang_GEN_alpha_frequency">GEN_alpha_frequency</sys:String>
+    <sys:String x:Key="Lang_AutoCloseCmd">コマンドラインを自動的に閉じる</sys:String>
+    <sys:String x:Key="Lang_GPU_Turbo">加速する</sys:String>
+    <sys:String x:Key="Lang_ShowRWKV">RWKV 表示（リスタートソフトセーブ）</sys:String>
+    <sys:String x:Key="Lang_LibsInfo">依存パッケージ情報:</sys:String>
+    <sys:String x:Key="Lang_CurrentVersion">現行版:</sys:String>
+    <sys:String x:Key="Lang_LastVersion">最新バージョン:</sys:String>
+    <sys:String x:Key="Lang_UpdateLibBtn">依存関係を更新する</sys:String>
+    <sys:String x:Key="Lang_SwitchDefault">pip 変更 (デフォルト)</sys:String>
+    <sys:String x:Key="Lang_SwitchTsinghua">pip 変更(Tsinghua)</sys:String>
+    <sys:String x:Key="Lang_SwitchUSTC">pip 変更(USTC)</sys:String>
+    <sys:String x:Key="Lang_AllInstall">インストール依存</sys:String>
+    <sys:String x:Key="Lang_DownloadGitHub">GitHub版のダウンロード</sys:String>
+    <sys:String x:Key="Lang_UpdateGitHub">GitHub版の更新</sys:String>
+    <sys:String x:Key="Lang_EditV2Chat">Chat.pyを編集</sys:String>
+    <sys:String x:Key="Lang_StartV2Chat">Chat.pyの起動</sys:String>
+    <sys:String x:Key="Lang_ParamDescTitle">パラメータの説明</sys:String>
+    <TextBlock x:Key="Lang_ParamDesc" TextWrapping="Wrap" xml:space="preserve">
+1.Strategy 具体的には、<Hyperlink  NavigateUri="https://zhuanlan.zhihu.com/p/609154637" RequestNavigate="Hyperlink_RequestNavigate">@PENG Bo 文章を知っている</Hyperlink><TextBlock Padding="5,5,0,0"><Button  Content="ポリシーの表示" Padding="2" Command="{Binding ShowStrategyCommand}" /></TextBlock>
+2.CHAT_LANG 3つの選択肢Chinese、English、Japaneseモデルによって選択され、異なるpromptがあります
+3.FREE_GEN_LEN 生成されるトークン数ごとに、問答モードでは効果がありません
+3.GEN_TEMP  デフォルト1.1、モデル出力分布のランダム性を変更し、高い→出力ランダム性が大きいほど、文才は優れているが、偏題、脱線しやすい 
+4.GEN_TOP_P 既定の0.7では、サンプリング時に切り取る前にp%がトークンサンプリングされる可能性があります。より小さいtop _p→より正確な答えですが、重複するコンテンツを出力する確率が高くなります
+5.GEN_alpha_presence デフォルト0.2、ペナルティが発生したトーケン、あるトーケンが初めて発生し、後続の得点控除
+6.GEN_alpha_frequency デフォルト0.2では、繰り返し発生したトーケンを罰し、alpha _frequency * N
+Web UI：<Hyperlink NavigateUri="https://modelscope.cn/studios/BlinkDL/RWKV-CHN/summary" RequestNavigate="Hyperlink_RequestNavigate">ModelScope</Hyperlink>   モデルダウンロードアドレス：<Hyperlink NavigateUri="https://huggingface.co/BlinkDL" RequestNavigate="Hyperlink_RequestNavigate">https://huggingface.co/BlinkDL</Hyperlink>
+Python版怠け者バッグ：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879065" RequestNavigate="Hyperlink_RequestNavigate">@漂浮的金链子：https://zhuanlan.zhihu.com/p/612879065</Hyperlink>
+テキストチュートリアルの微調整：<Hyperlink NavigateUri="https://www.bilibili.com/read/cv22445881" RequestNavigate="Hyperlink_RequestNavigate">https://www.bilibili.com/read/cv22445881</Hyperlink>
+ソースコードはchat.pyファイルを自分で修正する必要があり、本ソフトウェアは代わりに起動することができ、v 2ディレクトリ下のchat.pyのみをサポートする</TextBlock>
+    <TextBlock x:Key="Lang_AboutGitHub" HorizontalAlignment="Center">
+        GitHubアドレス：<Hyperlink NavigateUri="https://github.com/ZG1711/ChatRWKV_PC" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV_PC怠け者パックソースコード</Hyperlink>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutZhihu" HorizontalAlignment="Center">
+        知っているUrl：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/615655028" RequestNavigate="Hyperlink_RequestNavigate">@修计算机的网管 ChatRWKVデスクトップ版怠け者バッグ</Hyperlink>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutWeiyun" HorizontalAlignment="Center" Visibility="Collapsed"></TextBlock>
+    <TextBlock x:Key="Lang_AboutBaidu" HorizontalAlignment="Center"  Visibility="Collapsed"></TextBlock>
+    <TextBlock x:Key="Lang_AboutOneDrive"  HorizontalAlignment="Center">
+        OneDriveダウンロードUrl：<Hyperlink NavigateUri="https://63j8r7-my.sharepoint.com/:f:/g/personal/administered_63j8r7_onmicrosoft_com/EoDmBKMRaUhDtPN5L0hUbMkBHPz7lmRkc5EAHYgmZvfGBg?e=faZ5Yb" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKVデスクトップ版</Hyperlink>
+    </TextBlock>
+    <sys:String x:Key="Lang_AboutCopy">
+        © 2023 修计算机的网管
+    </sys:String>
+    <sys:String x:Key="Lang_AboutDesc">
+        このソフトウェアはコミュニケーションと学習に限り、有料ではありません。だまされないでください。
+    </sys:String>
+    <sys:String x:Key="Lang_StartFailed">起動に失敗しました</sys:String>
+    <sys:String x:Key="Lang_Starting">起動中</sys:String>
+    <sys:String x:Key="Lang_Running">運行中です</sys:String>
+    <sys:String x:Key="Lang_RunningTry">ランタイム異常です</sys:String>
+    <sys:String x:Key="Lang_NotRunning">稼働していません</sys:String>
+    <sys:String x:Key="Lang_RuningChatRWKV">スタートアップChatRWKV</sys:String>
+    <sys:String x:Key="Lang_StopChatRWKV">ストップChatRWKV</sys:String>
+    <sys:String x:Key="Lang_ConverterModel">モデル転換です</sys:String>
+    <sys:String x:Key="Lang_ConverterModelDir">変換モデルカタログです</sys:String>
+    <sys:String x:Key="Lang_RecordDir">会話保存ディレクトリです</sys:String>
+    <sys:String x:Key="Lang_SaveConfig">設定を保存します</sys:String>
+    <sys:String x:Key="Lang_Output">メッセージ域</sys:String>
+    <sys:String x:Key="Lang_Input">ユーザ入力域</sys:String>
+    <sys:String x:Key="Lang_NotRunMsg">稼働していません ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_SendMessage">発送(F5)</sys:String>
+    <sys:String x:Key="Lang_BatchSendMessage">大量発送です(F1)</sys:String>
+    <sys:String x:Key="Lang_CommandDesc">命令説明です</sys:String>
+    <sys:String x:Key="Lang_SaveRecord">会話を保存します</sys:String>
+    <sys:String x:Key="Lang_EditChatTitle">chat.pyを編集</sys:String>
+    <sys:String x:Key="Lang_SaveChat">ほぞんChat.py（ Ctrl+S ）</sys:String>
+    <sys:String x:Key="Lang_StrategyTitle">Strategy</sys:String>
+    <sys:String x:Key="Lang_UpdateLibTitle">依存関係を更新する</sys:String>
+    <sys:String x:Key="Lang_OK">OK</sys:String>
+    <sys:String x:Key="Lang_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Lang_CommandDescStr" xml:space="preserve">
+直接入力 --> ボットとチャットする．改行には\\nを使用してください．.&#10;
++ --> ボットに前回のチャットの内容を変更させる．.&#10;
++reset --> 対話のリセット．メモリをリセットするために，+resetを定期的に実行してください．.&#10;
++i インストラクトの入力 --> チャットの文脈を無視して独立した質問を行う．改行には\\nを使用してください．.&#10;
++gen プロンプトの生成 --> チャットの文脈を無視して入力したプロンプトに続く文章を出力する．改行には\\nを使用してください．.&#10;
++++ --> +gen / +i の出力の回答を続ける．.&#10;
+++ --> +gen / +i の出力の再生成を行う.&#10;
+    </sys:String>
+    <sys:String x:Key="Lang_NotModelMsg">モデルファイルは存在しません！！！</sys:String>
+    <sys:String x:Key="Lang_SaveRecordlSuccessMsg">保存成功です</sys:String>
+    <sys:String x:Key="Lang_SaveErrorMsg">保存に失敗しました</sys:String>
+    <sys:String x:Key="Lang_NotInstall">未インストールです</sys:String>
+    <sys:String x:Key="Lang_NotRWKVLibMsg">rwkv依存パケットなしでは加速できません！</sys:String>
+    <sys:String x:Key="Lang_SaveSettingsSuccessMsg">保存済みです</sys:String>
+    <sys:String x:Key="Lang_OutCountTextBlock">出力文字の総数です:：</sys:String>
+</ResourceDictionary>

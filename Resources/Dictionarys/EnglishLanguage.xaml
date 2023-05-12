@@ -1,0 +1,103 @@
+﻿<ResourceDictionary x:Class="ChatRWKV_PC.Resources.Dictionarys.EnglishLanguage"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Lang_MainTitle">ChatRWKV Desktop</sys:String>
+    <sys:String x:Key="Lang_About">About</sys:String>
+    <sys:String x:Key="Lang_ConfigAreaName">Configs</sys:String>
+    <sys:String x:Key="Lang_MODEL_NAME">ModelName</sys:String>
+    <sys:String x:Key="Lang_MODEL_NAME_Placeholder">drag in file</sys:String>
+    <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
+    <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>
+    <sys:String x:Key="Lang_FREE_GEN_LEN">FREE_GEN_LEN</sys:String>
+    <sys:String x:Key="Lang_GEN_TEMP">GEN_TEMP</sys:String>
+    <sys:String x:Key="Lang_GEN_TOP_P">GEN_TOP_P</sys:String>
+    <sys:String x:Key="Lang_GEN_alpha_presence">GEN_alpha_presence</sys:String>
+    <sys:String x:Key="Lang_GEN_alpha_frequency">GEN_alpha_frequency</sys:String>
+    <sys:String x:Key="Lang_AutoCloseCmd">Automatically close CMD</sys:String>
+    <sys:String x:Key="Lang_GPU_Turbo">GPU Turbo</sys:String>
+    <sys:String x:Key="Lang_ShowRWKV">Show RWKV process(Save and Restart)</sys:String>
+    <sys:String x:Key="Lang_LibsInfo">Dependency package information:</sys:String>
+    <sys:String x:Key="Lang_CurrentVersion">CVersion:</sys:String>
+    <sys:String x:Key="Lang_LastVersion">LVersion:</sys:String>
+    <sys:String x:Key="Lang_UpdateLibBtn">Update</sys:String>
+    <sys:String x:Key="Lang_SwitchDefault">pip source(defaul)</sys:String>
+    <sys:String x:Key="Lang_SwitchTsinghua">pip source(tsinghua)</sys:String>
+    <sys:String x:Key="Lang_SwitchUSTC">pip source(USTC)</sys:String>
+    <sys:String x:Key="Lang_AllInstall">All install package</sys:String>
+    <sys:String x:Key="Lang_DownloadGitHub">Down RWKV source</sys:String>
+    <sys:String x:Key="Lang_UpdateGitHub">Update RWKV source</sys:String>
+    <sys:String x:Key="Lang_EditV2Chat">Edit Chat.py</sys:String>
+    <sys:String x:Key="Lang_StartV2Chat">Run Chat.py</sys:String>
+    <sys:String x:Key="Lang_ParamDescTitle">Parameter descriptor</sys:String>
+    <TextBlock x:Key="Lang_ParamDesc" TextWrapping="Wrap" xml:space="preserve">
+Parameter descriptor：
+1.Strategy： Details <Hyperlink  NavigateUri="https://zhuanlan.zhihu.com/p/609154637" RequestNavigate="Hyperlink_RequestNavigate">@PENG Bo Open source 1.5/3/7B Chinese novel model: 3G video memory can run 7B model, a few lines of code can be called</Hyperlink><TextBlock Padding="5,5,0,0"><Button  Content="view details" Padding="2" Command="{Binding ShowStrategyCommand}" /></TextBlock>
+2.CHAT_LANG： The three options Chinese,English, and Japanese have different prompt depending on the model selection
+3.FREE_GEN_LEN： The number of tokens generated each time has no effect in Q&amp;A mode
+4.GEN_TEMP： Default 1.1, outputs token randomness
+5.GEN_TOP_P：The default is 0.7, the smaller the content, the higher the repetition rate
+6.GEN_alpha_presence：The default is 0.2, which penalizes occurrences of tokens
+7.GEN_alpha_frequency： The default is 0.2, which penalizes recurring tokens
+Web UI：<Hyperlink NavigateUri="https://modelscope.cn/studios/BlinkDL/RWKV-CHN/summary" RequestNavigate="Hyperlink_RequestNavigate">ModelScope</Hyperlink>   Models download url：<Hyperlink NavigateUri="https://huggingface.co/BlinkDL" RequestNavigate="Hyperlink_RequestNavigate">https://huggingface.co/BlinkDL</Hyperlink>
+Lazy Guy for Python：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879065" RequestNavigate="Hyperlink_RequestNavigate">@漂浮的金链子：https://zhuanlan.zhihu.com/p/612879065</Hyperlink>
+Source code need to modify their own chat.py file, this software can be started on behalf of, only support v2 directory chat.py</TextBlock>
+    <TextBlock x:Key="Lang_AboutGitHub" HorizontalAlignment="Center">
+        GitHub Url：<Hyperlink NavigateUri="https://github.com/ZG1711/ChatRWKV_PC" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV Desktop sources</Hyperlink>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutZhihu" HorizontalAlignment="Center">
+        
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutWeiyun" HorizontalAlignment="Center">
+        OneDrive download url：<Hyperlink NavigateUri="https://63j8r7-my.sharepoint.com/:f:/g/personal/administered_63j8r7_onmicrosoft_com/EoDmBKMRaUhDtPN5L0hUbMkBHPz7lmRkc5EAHYgmZvfGBg?e=faZ5Yb" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV Desktop</Hyperlink>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutBaidu" HorizontalAlignment="Center" Visibility="Collapsed">
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutOneDrive" HorizontalAlignment="Center" Visibility="Collapsed">
+    </TextBlock>
+    <sys:String x:Key="Lang_AboutCopy">
+        © 2023 修计算机的网管
+    </sys:String>
+    <sys:String x:Key="Lang_AboutDesc">
+        This SOFTWARE is only for communication and learning, no charge, do not be cheated!
+    </sys:String>
+    <sys:String x:Key="Lang_StartFailed">Startup failed</sys:String>
+    <sys:String x:Key="Lang_Starting">Starting</sys:String>
+    <sys:String x:Key="Lang_Running">Running</sys:String>
+    <sys:String x:Key="Lang_RunningTry">RuntimeExcepiton</sys:String>
+    <sys:String x:Key="Lang_NotRunning">Not running</sys:String>
+    <sys:String x:Key="Lang_RuningChatRWKV">Run ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_StopChatRWKV">Stop ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_ConverterModel">Converter Model</sys:String>
+    <sys:String x:Key="Lang_ConverterModelDir">Converter Directory</sys:String>
+    <sys:String x:Key="Lang_RecordDir">Record Directory</sys:String>
+    <sys:String x:Key="Lang_SaveConfig">Save Configs</sys:String>
+    <sys:String x:Key="Lang_Output">Output</sys:String>
+    <sys:String x:Key="Lang_Input">Input</sys:String>
+    <sys:String x:Key="Lang_NotRunMsg">Not running ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_SendMessage">Send(F5)</sys:String>
+    <sys:String x:Key="Lang_BatchSendMessage">BatchSend(F1)</sys:String>
+    <sys:String x:Key="Lang_CommandDesc">CommandDesc</sys:String>
+    <sys:String x:Key="Lang_SaveRecord">SaveRecord</sys:String>
+    <sys:String x:Key="Lang_EditChatTitle">Edit chat.py</sys:String>
+    <sys:String x:Key="Lang_SaveChat">Save Chat.py（ Ctrl+S ）</sys:String>
+    <sys:String x:Key="Lang_StrategyTitle">Strategy Image</sys:String>
+    <sys:String x:Key="Lang_UpdateLibTitle">Update Package</sys:String>
+    <sys:String x:Key="Lang_OK">OK</sys:String>
+    <sys:String x:Key="Lang_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Lang_CommandDescStr" xml:space="preserve">
++ --> alternate chat reply&#10;
++reset --> reset chat&#10;
++gen YOUR PROMPT --> free single-round generation with any prompt. use \\n for new line.&#10;
++i YOUR INSTRUCT --> free single-round generation with any instruct. use \\n for new line.&#10;
++++ --> continue last free generation (only for +gen / +i)&#10;
+++ --> retry last free generation (only for +gen / +i)&#10;
+    </sys:String>
+    <sys:String x:Key="Lang_NotModelMsg">Model file does not exist！！！</sys:String>
+    <sys:String x:Key="Lang_SaveRecordlSuccessMsg">save successfully</sys:String>
+    <sys:String x:Key="Lang_SaveErrorMsg">save failed</sys:String>
+    <sys:String x:Key="Lang_NotInstall">not installed</sys:String>
+    <sys:String x:Key="Lang_NotRWKVLibMsg">Acceleration cannot be enabled without rwkv dependencies！</sys:String>
+    <sys:String x:Key="Lang_SaveSettingsSuccessMsg">saved</sys:String>
+    <sys:String x:Key="Lang_OutCountTextBlock">Output Count：</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,400 @@
+﻿<hc:Window x:Class="ChatRWKV_PC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatRWKV_PC"
+        mc:Ignorable="d"
+        MinWidth="1440"
+        MinHeight="900"
+        xmlns:converter="clr-namespace:ChatRWKV_PC.Converters"
+        WindowStartupLocation="CenterScreen"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        Icon="/Resources/Images/icon.png"
+        FontSize="11"
+        Title="{DynamicResource Lang_MainTitle}" Height="450" Width="800">
+    <hc:Window.Resources>
+        <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter"/>
+        <converter:LanguageToBoolConverter x:Key="LanguageToBoolConverter"/>
+        <Style TargetType="Label" BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="FontSize" Value="11" />
+        </Style>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBaseStyle}">
+            <Setter Property="FontSize" Value="11" />
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+            <Setter Property="FontSize" Value="11" />
+        </Style>
+        <Style TargetType="GroupBox" BasedOn="{StaticResource BaseStyle}" >
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonGroupItemBaseStyle}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </hc:Window.Resources>
+    <hc:Window.NonClientAreaContent>
+        <Button HorizontalAlignment="Right" Content="{DynamicResource Lang_About}" Style="{StaticResource ButtonCustom}" Command="{Binding ShowDialogWindowCommand}" CommandParameter="AboutWindow" />
+    </hc:Window.NonClientAreaContent>
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+            <hc:ButtonGroup>
+                <RadioButton Content="简体中文" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=简体中文}"  />
+                <RadioButton Content="English" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=English}" />
+                <RadioButton Content="Japanese" IsChecked="{Binding Language,Converter={StaticResource LanguageToBoolConverter},ConverterParameter=Japanese}" />
+            </hc:ButtonGroup>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+            <ContentControl HorizontalAlignment="Center" Content="{DynamicResource Lang_AboutCopy}" />
+            <ContentControl HorizontalAlignment="Center" Content="{DynamicResource Lang_AboutDesc}" />
+        </StackPanel>
+
+
+        <GroupBox DockPanel.Dock="Left" Width="600">
+            <GroupBox.HeaderTemplate>
+                <ItemContainerTemplate>
+                    <Label FontSize="14">
+                        <ContentPresenter Content="{DynamicResource Lang_ConfigAreaName}" />
+                    </Label>
+                </ItemContainerTemplate>
+            </GroupBox.HeaderTemplate>
+            <StackPanel >
+                <TextBox Width="Auto" 
+                         x:Name="ModelName"
+                         hc:InfoElement.TitlePlacement="Left"
+                         hc:InfoElement.Title="{DynamicResource Lang_MODEL_NAME}"
+                         hc:InfoElement.Placeholder="{DynamicResource Lang_MODEL_NAME_Placeholder}"
+                         Style="{StaticResource TextBoxExtend}"
+                         AllowDrop="True" 
+                         Text="{Binding ModelName}"
+                         VerticalAlignment="Center" 
+                         Height="35" PreviewDrop="ModelName_PreviewDrop" PreviewDragOver="ModelName_PreviewDragOver"
+                         />
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="{DynamicResource Lang_Strategy}"
+                             Height="35" VerticalAlignment="Center" Text="{Binding Strategy}" />
+                    <TextBox Grid.Column="1"
+                             Margin="5,0,0,0"
+                             hc:InfoElement.TitlePlacement="Left"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.Title="{DynamicResource Lang_CHAT_LANG}"
+                             Height="35" VerticalAlignment="Center" Text="{Binding CHAT_LANG}" />
+                    
+                </Grid>
+                
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="{DynamicResource Lang_FREE_GEN_LEN}"
+                             Height="35" VerticalAlignment="Center" Text="{Binding TokenCount}" />
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="{DynamicResource Lang_GEN_TEMP}"
+                             hc:InfoElement.Placeholder=""
+                             Margin="5,0,0,0"
+                             Height="35" VerticalAlignment="Center" Text="{Binding Temperature}" />
+                    <TextBox Grid.Column="2"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="{DynamicResource Lang_GEN_TOP_P}"
+                             hc:InfoElement.Placeholder=""
+                             Margin="5,0,0,0"
+                             Height="35" VerticalAlignment="Center" Text="{Binding TopP}" />
+                </Grid>
+
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_presence}"
+                             hc:InfoElement.Placeholder=""
+                             Height="35" VerticalAlignment="Center" Text="{Binding PresencePenalty}" />
+                    <TextBox Grid.Column="2"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_frequency}"
+                             hc:InfoElement.Placeholder=""
+                             Margin="5,0,0,0"
+                             Height="35" VerticalAlignment="Center" Text="{Binding CountPenalty}" />
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" x:Name="IsAutoCmdCheckBox" Content="{DynamicResource Lang_AutoCloseCmd}"  IsChecked="{Binding IsAutoCmd}" />
+                    <CheckBox Grid.Column="1" Margin="5,0,0,0" Content="{DynamicResource Lang_GPU_Turbo}" IsChecked="{Binding IsSpeed}" />
+                    <ComboBox Grid.Column="2" Margin="5,0,0,0" ItemsSource="{Binding FontFamilys, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" x:Name="FontFamilysComboBox" SelectionChanged="FontFamilysComboBox_SelectionChanged" />
+                    <CheckBox Grid.Column="3" Margin="5,0,0,0" Content="{DynamicResource Lang_ShowRWKV}" IsChecked="{Binding ShowRWKV}" />
+                </Grid>
+                <Label Content="{DynamicResource Lang_LibsInfo}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions >
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <Label Content="rwkv" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                            <Label Content="{Binding RwkvCurrentVersion}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_LastVersion}" />
+                            <Label Content="{Binding RwkvLastVersion}" />
+                        </StackPanel>
+                        <Button HorizontalAlignment="Stretch" Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="rwkv"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <Label Content="torch + cu117" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                            <TextBlock TextWrapping="Wrap" Text="{Binding TorchCurrentVersion}" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_LastVersion}" />
+                            <TextBlock TextWrapping="Wrap" Text="{Binding TorchLastVersion}" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <Button  Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="torch"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2">
+                        <Label Content="tokenizers" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                            <Label Content="{Binding TokenizersCurrentVersion}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_LastVersion}" />
+                            <Label Content="{Binding TokenizersLastVersion}" />
+                        </StackPanel>
+                        <Button Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="tokenizers"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="3">
+                        <Label Content="numpy" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                            <Label Content="{Binding NumpyCurrentVersion}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource Lang_LastVersion}" />
+                            <Label Content="{Binding NumpyLastVersion}" />
+                        </StackPanel>
+                        <Button  Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="numpy"/>
+                    </StackPanel>
+                    <Button Grid.Row="2" Grid.Column="0" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.org/simple" Content="{DynamicResource Lang_SwitchDefault}" Height="32" Margin="5,0"/>
+                    <Button Grid.Row="2" Grid.Column="1" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.tuna.tsinghua.edu.cn/simple" Content="{DynamicResource Lang_SwitchTsinghua}" Height="32" Margin="5,5,5,0"/>
+                    <Button Grid.Row="2" Grid.Column="2" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.mirrors.ustc.edu.cn/simple/" Content="{DynamicResource Lang_SwitchUSTC}" Height="32" Margin="5,5,5,0"/>
+                    <Button Grid.Row="2" Grid.Column="3" Command="{Binding AllInstallBtnCommand,Mode=OneWay}" Content="{DynamicResource Lang_AllInstall}" Height="32" Margin="5,5,5,0" />
+                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding GitHubRWKDownloadCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="{DynamicResource Lang_DownloadGitHub}" Height="32" Margin="5,0" />
+                    <Button Grid.Row="3" Grid.Column="1" Command="{Binding GitHubRWKVUpdateCommand,Mode=OneWay}"  CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="{DynamicResource Lang_UpdateGitHub}" Height="32" Margin="5,5,5,0"/>
+                    <Button Grid.Row="3" Grid.Column="2" Command="{Binding EditBtnCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="EditBtn" Content="{DynamicResource Lang_EditV2Chat}" Height="32" Margin="5,5,5,0" />
+                    <Button Grid.Row="3" Grid.Column="3" Command="{Binding StartGitHubChatPyCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="StartChatBtn" Content="{DynamicResource Lang_StartV2Chat}" Height="32" Margin="5,5,5,0" />
+                </Grid>
+                <TextBlock Margin="0,5">
+                    <ContentPresenter  Content="{DynamicResource Lang_ParamDesc}" />
+                </TextBlock>
+                <Grid>
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Text="{DynamicResource Lang_StartFailed}" Foreground="Red" HorizontalAlignment="Center" />
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-2}" Text="{DynamicResource Lang_StartFailed}" Foreground="Red" HorizontalAlignment="Center" />
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Text="{DynamicResource Lang_NotRunning}" Foreground="#FF0FBBBB" HorizontalAlignment="Center"  />
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}" Text="{DynamicResource Lang_Running}" Foreground="Green" HorizontalAlignment="Center" />
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Text="{DynamicResource Lang_Starting}" Foreground="Orange" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid Margin="0,5" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                        <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                        <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                        <Button Content="{DynamicResource Lang_StopChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}"  Command="{Binding StopBtnCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                    </Grid>
+                    <Button Margin="5,0" Content="{DynamicResource Lang_ConverterModel}" Grid.Column="1" Command="{Binding ConverterModelCommand}"/>
+                    <Button Grid.Column="2" Content="{DynamicResource Lang_SaveConfig}" Command="{Binding SaveSettingsBtnCommand}"/>
+                </Grid>
+                <Grid HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="{DynamicResource Lang_ConverterModelDir}" Command="{Binding OpenFolderCommand}" CommandParameter="ConverterModel" />
+                    <Button Grid.Column="1" Margin="5,0" Content="{DynamicResource Lang_RecordDir}" Command="{Binding OpenFolderCommand}" CommandParameter="SaveRecocd"/>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+        <Grid DockPanel.Dock="Right" Margin="10,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="{DynamicResource Lang_Output}" FontSize="14" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions >
+                        <RowDefinition />
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <ListBox Name="ListBoxChat"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         Background="Transparent" 
+                         BorderThickness="0" 
+                         Style="{StaticResource StackPanelVerticalListBox}" 
+                         ItemsSource="{Binding ChatInfoModels,UpdateSourceTrigger=PropertyChanged}" 
+                         ScrollViewer.ScrollChanged="ListBoxChat_ScrollChanged"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <hc:ChatBubble Role="{Binding Role}"
+                                           Type="{Binding Type}"
+                                           Content="{Binding Message}" 
+                                           Background="{Binding Background}" 
+                                           Foreground="{Binding FontColor}" 
+                                           MaxWidth="{Binding MaxWidth}">
+                                    <hc:ChatBubble.Style>
+                                        <Style TargetType="{x:Type hc:ChatBubble}" BasedOn="{StaticResource ChatBubbleBaseStyle}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type hc:ChatBubble}">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Name="ColWidth0"/>
+                                                                <ColumnDefinition Width="42" Name="ColWidth1"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition />
+                                                                <RowDefinition />
+                                                            </Grid.RowDefinitions>
+                                                            <TextBlock 
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Foreground="#666666" 
+                                                            Margin="0,0,10,0"
+                                                            Text="{Binding Name}" 
+                                                            Name="SendName" 
+                                                            HorizontalAlignment="Right" />
+                                                            <Path Name="Tail" 
+                                                              Grid.Row="1"
+                                                              Grid.Column="0"
+                                                              Margin="0,24,0,0"
+                                                              RenderTransformOrigin="0.5,0.5"
+                                                              Stretch="Fill"
+                                                              Data="M0,0 L15,7.5 0,15" 
+                                                              HorizontalAlignment="Right" 
+                                                              VerticalAlignment="Top"  
+                                                              Fill="{TemplateBinding Background}"   
+                                                              Width="15"
+                                                              Height="15" />
+                                                            <Border Grid.Row="1" Grid.Column="0" Name="Body" Background="{TemplateBinding Background}" CornerRadius="8" Margin="0,20,8,0">
+                                                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="{TemplateBinding Padding}">
+                                                                <TextBox  Foreground="{Binding FontColor}" FontSize="{TemplateBinding FontSize}" Text="{TemplateBinding Content}" TextWrapping="Wrap" IsReadOnly="True" Style="{StaticResource BaseStyle}" BorderThickness="0" Background="Transparent"/>
+                                                                </TextBlock>
+                                                            </Border>
+                                                            <Border Grid.Row="1" Grid.Column="1" 
+                                                                Name="HeadImage"
+                                                                VerticalAlignment="Top" 
+                                                                Background="{Binding ImagesBackground}" 
+                                                                Width="36" Height="36" 
+                                                                HorizontalAlignment="Right"  >
+                                                                <Image  Source="{Binding Icon}" />
+                                                            </Border>
+                                                        </Grid>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="Role" Value="Receiver">
+                                                                <Setter TargetName="ColWidth0" Property="Width"  Value="42"/>
+                                                                <Setter TargetName="ColWidth1" Property="Width"  Value="*"/>
+                                                                <Setter TargetName="SendName" Property="HorizontalAlignment" Value="Left" />
+                                                                <Setter TargetName="SendName" Property="Grid.Column" Value="1" />
+                                                                <Setter TargetName="SendName" Property="Margin" Value="10,0,0,0" />
+                                                                <Setter TargetName="HeadImage" Property="Grid.Column" Value="0" />
+                                                                <Setter TargetName="HeadImage" Property="HorizontalAlignment" Value="Left" />
+                                                                <Setter TargetName="Tail" Property="HorizontalAlignment" Value="Left"/>
+                                                                <Setter TargetName="Tail" Property="Grid.Column" Value="1"/>
+                                                                <Setter TargetName="Tail" Property="Margin" Value="0,24,0,0"/>
+                                                                <Setter TargetName="Tail" Property="RenderTransform">
+                                                                    <Setter.Value>
+                                                                        <TransformGroup>
+                                                                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                                                                        </TransformGroup>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                                <Setter TargetName="Body" Property="Margin" Value="8,20,0,0"/>
+                                                                <Setter TargetName="Body" Property="Grid.Column" Value="1"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </hc:ChatBubble.Style>
+                                </hc:ChatBubble>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="{DynamicResource Lang_OutCountTextBlock}" />
+                        <TextBlock Text="{Binding OutCount}" />
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="{DynamicResource Lang_Input}" FontSize="14" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Text="{Binding InputMsg,UpdateSourceTrigger=PropertyChanged}" FontSize="14" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" >
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="F5" Command="{Binding SendMessageCommand}" CommandParameter="{Binding ElementName=SendMessage_Button}" />
+                            <KeyBinding Key="F1" Command="{Binding BatchSendMessageCommand}" CommandParameter="{Binding ElementName=BatchSendMessage_Button}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Grid Grid.Column="1" Margin="8,0,0,0">
+                        <Grid.RowDefinitions >
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button Content="{DynamicResource Lang_SendMessage}" Grid.Row="0" Name="SendMessage_Button"  Command="{Binding SendMessageCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                        <Button Content="{DynamicResource Lang_BatchSendMessage}" Grid.Row="1" Name="BatchSendMessage_Button"  Command="{Binding BatchSendMessageCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                        <Button Content="{DynamicResource Lang_CommandDesc}" Grid.Row="2"  Command="{Binding CommandDesc}" />
+                        <Button Content="{DynamicResource Lang_SaveRecord}" Grid.Row="3" Command="{Binding SaveRecordCommand}"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</hc:Window>

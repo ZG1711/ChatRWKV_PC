@@ -1,0 +1,106 @@
+﻿<ResourceDictionary x:Class="ChatRWKV_PC.Resources.Dictionarys.ChineseLanguage"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Lang_MainTitle">ChatRWKV桌面版</sys:String>
+    <sys:String x:Key="Lang_About">关于</sys:String>
+    <sys:String x:Key="Lang_ConfigAreaName">配置区</sys:String>
+    <sys:String x:Key="Lang_MODEL_NAME">模型路径</sys:String>
+    <sys:String x:Key="Lang_MODEL_NAME_Placeholder">可拖入文件到本文本框自动处理</sys:String>
+    <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
+    <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>
+    <sys:String x:Key="Lang_FREE_GEN_LEN">FREE_GEN_LEN</sys:String>
+    <sys:String x:Key="Lang_GEN_TEMP">GEN_TEMP</sys:String>
+    <sys:String x:Key="Lang_GEN_TOP_P">GEN_TOP_P</sys:String>
+    <sys:String x:Key="Lang_GEN_alpha_presence">GEN_alpha_presence</sys:String>
+    <sys:String x:Key="Lang_GEN_alpha_frequency">GEN_alpha_frequency</sys:String>
+    <sys:String x:Key="Lang_AutoCloseCmd">自动关闭命令行</sys:String>
+    <sys:String x:Key="Lang_GPU_Turbo">开启加速</sys:String>
+    <sys:String x:Key="Lang_ShowRWKV">显示RWKV进程(需保存重启)</sys:String>
+    <sys:String x:Key="Lang_LibsInfo">依赖包信息:</sys:String>
+    <sys:String x:Key="Lang_CurrentVersion">当前版本:</sys:String>
+    <sys:String x:Key="Lang_LastVersion">最新版本:</sys:String>
+    <sys:String x:Key="Lang_UpdateLibBtn">更新依赖</sys:String>
+    <sys:String x:Key="Lang_SwitchDefault">切换pip源(默认)</sys:String>
+    <sys:String x:Key="Lang_SwitchTsinghua">切换pip源(清华)</sys:String>
+    <sys:String x:Key="Lang_SwitchUSTC">切换pip源(科技)</sys:String>
+    <sys:String x:Key="Lang_AllInstall">一键安装依赖</sys:String>
+    <sys:String x:Key="Lang_DownloadGitHub">下载GitHub版</sys:String>
+    <sys:String x:Key="Lang_UpdateGitHub">更新GitHub版</sys:String>
+    <sys:String x:Key="Lang_EditV2Chat">编辑Chat.py</sys:String>
+    <sys:String x:Key="Lang_StartV2Chat">启动Chat.py</sys:String>
+    <sys:String x:Key="Lang_ParamDescTitle">参数说明</sys:String>
+    <TextBlock x:Key="Lang_ParamDesc" TextWrapping="Wrap" xml:space="preserve">
+1.Strategy 具体看：<Hyperlink  NavigateUri="https://zhuanlan.zhihu.com/p/609154637" RequestNavigate="Hyperlink_RequestNavigate">@PENG Bo 开源1.5/3/7B中文小说模型：显存3G就能跑7B模型，几行代码即可调用</Hyperlink><TextBlock Padding="5,5,0,0"><Button  Content="查看策略" Padding="2" Command="{Binding ShowStrategyCommand}" /></TextBlock>
+2.CHAT_LANG 三个选项Chinese,English,Japanese根据模型选择,有不同的prompt
+3.FREE_GEN_LEN 每次生成的Token数,问答模式下设定无效果
+3.GEN_TEMP 默认1.1，改变模型输出分布的随机性，越高 → 输出随机性越大，文采斐然，但更容易偏题、脱轨 
+4.GEN_TOP_P 默认0.7，在采样时截取前p%可能出现token采样。更小的top_p → 更准确的答案，但会增加输出重复内容的概率
+5.GEN_alpha_presence 默认0.2，惩罚出现过的token，某token首次出现，后续得分扣除
+6.GEN_alpha_frequency 默认0.2，惩罚重复出现的token，出现N次得分扣 alpha_frequency * N
+网页版：<Hyperlink NavigateUri="https://modelscope.cn/studios/BlinkDL/RWKV-CHN/summary" RequestNavigate="Hyperlink_RequestNavigate">ModelScope 魔搭</Hyperlink>   模型下载地址：<Hyperlink NavigateUri="https://huggingface.co/BlinkDL" RequestNavigate="Hyperlink_RequestNavigate">https://huggingface.co/BlinkDL</Hyperlink>
+Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879065" RequestNavigate="Hyperlink_RequestNavigate">@漂浮的金链子：ChatRWKV懒人版python包</Hyperlink>
+调参攻略：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/616353805" RequestNavigate="Hyperlink_RequestNavigate">@光曙：《“光曙”编写的RWKV写小说炼丹心得》2023-03-23版本</Hyperlink>
+微调文本教程：<Hyperlink NavigateUri="https://www.bilibili.com/read/cv22445881" RequestNavigate="Hyperlink_RequestNavigate">M40显卡通过lora微调国产开源模型RWKV</Hyperlink>
+源码的需要自己修改chat.py文件,本软件可以代为启动，仅支持v2目录下chat.py</TextBlock>
+    <TextBlock x:Key="Lang_AboutGitHub" HorizontalAlignment="Center">
+        GitHub地址：<Hyperlink NavigateUri="https://github.com/ZG1711/ChatRWKV_PC" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV_PC懒人包源码</Hyperlink>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutZhihu" HorizontalAlignment="Center">
+        知乎地址：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/615655028" RequestNavigate="Hyperlink_RequestNavigate">@修计算机的网管 ChatRWKV桌面版懒人包</Hyperlink>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutWeiyun" HorizontalAlignment="Center">
+        微云下载地址：<Hyperlink NavigateUri="https://share.weiyun.com/mlNwiMR7" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV桌面版懒人包</Hyperlink><TextBlock Padding="0,3,0,0"> <TextBox IsReadOnly="True" VerticalContentAlignment="Bottom" Style="{StaticResource BaseStyle}" BorderThickness="0" >提取码: zvw7md</TextBox> </TextBlock>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutBaidu" HorizontalAlignment="Center">
+        百度下载地址：<Hyperlink NavigateUri="https://pan.baidu.com/s/1EWPrzl5lHdL411c_qd4dCA?pwd=kvwu" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV桌面版懒人包</Hyperlink><TextBlock Padding="0,3,0,0"> <TextBox IsReadOnly="True" VerticalContentAlignment="Bottom" Style="{StaticResource BaseStyle}" BorderThickness="0" >提取码: kvwu</TextBox> </TextBlock>
+    </TextBlock>
+    <TextBlock x:Key="Lang_AboutOneDrive" HorizontalAlignment="Center" Visibility="Collapsed">
+    </TextBlock>
+    <sys:String x:Key="Lang_AboutCopy">
+        © 2023 修计算机的网管
+    </sys:String>
+    <sys:String x:Key="Lang_AboutDesc">
+        本软件仅限交流与学习，不收费，请勿被骗！
+    </sys:String>
+    <sys:String x:Key="Lang_StartFailed">启动失败</sys:String>
+    <sys:String x:Key="Lang_Starting">启动中</sys:String>
+    <sys:String x:Key="Lang_Running">运行中</sys:String>
+    <sys:String x:Key="Lang_RunningTry">运行异常</sys:String>
+    <sys:String x:Key="Lang_NotRunning">未运行</sys:String>
+    <sys:String x:Key="Lang_RuningChatRWKV">运行ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_StopChatRWKV">停止ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_ConverterModel">转换模型</sys:String>
+    <sys:String x:Key="Lang_ConverterModelDir">转换模型目录</sys:String>
+    <sys:String x:Key="Lang_RecordDir">对话保存目录</sys:String>
+    <sys:String x:Key="Lang_SaveConfig">保存设置</sys:String>
+    <sys:String x:Key="Lang_Output">输出区</sys:String>
+    <sys:String x:Key="Lang_Input">输入区</sys:String>
+    <sys:String x:Key="Lang_NotRunMsg">未启动ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_SendMessage">发送(F5)</sys:String>
+    <sys:String x:Key="Lang_BatchSendMessage">批量发送(F1)</sys:String>
+    <sys:String x:Key="Lang_CommandDesc">命令说明</sys:String>
+    <sys:String x:Key="Lang_SaveRecord">保存对话</sys:String>
+    <sys:String x:Key="Lang_EditChatTitle">编辑chat.py</sys:String>
+    <sys:String x:Key="Lang_SaveChat">保存Chat.py（ Ctrl+S ）</sys:String>
+    <sys:String x:Key="Lang_StrategyTitle">Strategy策略图</sys:String>
+    <sys:String x:Key="Lang_UpdateLibTitle">更新依赖包</sys:String>
+    <sys:String x:Key="Lang_OK">确定</sys:String>
+    <sys:String x:Key="Lang_Cancel">取消</sys:String>
+    <sys:String x:Key="Lang_CommandDescStr" xml:space="preserve">
++prompt --> 加载一个新的prompt,格式+prompt filename。&#10;
++ --> 让机器人换个回答&#10;
++reset --> 重置对话，请经常使用 +reset 重置机器人记忆&#10;
++i 某某指令 --> 问独立的问题（忽略聊天上下文），用\\n代表换行，必须用 Raven 模型&#10;
++gen 某某内容 --> 续写内容（忽略聊天上下文），用\\n代表换行，写小说用 testNovel 模型&#10;
++++ --> 继续 +gen / +i 的回答&#10;
+++ --> 换个 +gen / +i 的回答&#10;
+    </sys:String>
+    <sys:String x:Key="Lang_NotModelMsg">模型文件不存在！！！</sys:String>
+    <sys:String x:Key="Lang_SaveRecordlSuccessMsg">保存成功</sys:String>
+    <sys:String x:Key="Lang_SaveErrorMsg">保存失败</sys:String>
+    <sys:String x:Key="Lang_NotInstall">未安装</sys:String>
+    <sys:String x:Key="Lang_NotRWKVLibMsg">没有rwkv依赖包，无法开启加速！</sys:String>
+    <sys:String x:Key="Lang_SaveSettingsSuccessMsg">已保存</sys:String>
+    <sys:String x:Key="Lang_OutCountTextBlock">输出字符总数：</sys:String>
+</ResourceDictionary>

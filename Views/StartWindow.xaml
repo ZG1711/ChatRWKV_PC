@@ -1,0 +1,17 @@
+﻿<Window x:Class="ChatRWKV_PC.Views.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatRWKV_PC.Views"
+        mc:Ignorable="d"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Title="ChatRWKV桌面版" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+
+    <StackPanel Width="600" Margin="32" VerticalAlignment="Center">
+        <hc:LoadingLine Margin="0,30" Foreground="BlueViolet" Style="{StaticResource LoadingLineLarge}"/>
+    </StackPanel>
+</Window>

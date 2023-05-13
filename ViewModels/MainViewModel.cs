@@ -1486,5 +1486,150 @@ namespace ChatRWKV_PC.ViewModels
                 OtherUtil.StartCmdProcess(false, PipUtils.PyPath + "python Check_Strategy.py");
             });
         }
+        /// <summary>
+        /// 量化模型命令
+        /// </summary>
+        public BtnCommand RwkvCppQuantizeCommand
+        {
+            get => new BtnCommand((param) =>
+            {
+                //rwkv.cpp根目录
+                string root = currentDirectory + "rwkvcpp/rwkv/";
+                //转换文件路径
+                string converterFile = root + "QuantizeRun.py";
+                //保存目录
+                string savePath = root + "ConverterModels/";
+                if (!File.Exists(converterFile))
+                {
+                    OtherUtil.RelativeFileRelease("/Resources/PyFile/QuantizeRun.py", converterFile);
+                }
+
+                if (!Directory.Exists(savePath))
+                    Directory.CreateDirectory(savePath);
+                //创建进程
+                string arg = string.Format("{0}python {1} {2} {3} {4}", PipUtils.PyPath, converterFile, CppModelName, savePath + Path.GetFileName(CppModelName), QuantizeFormat);
+                OtherUtil.StartCmdProcess(Settings.Default.IsAutoCmd, arg);
+            });
+        }
+        public BtnCommand RwkvCppRunCommand
+        {
+            get => new BtnCommand(async param =>
+            {
+                //rwkv.cpp根目录
+                string root = currentDirectory + "rwkvcpp/rwkv/";
+                string runFile = root + "RwkvCppRun.py";
+
+                OtherUtil.RelativeFileRelease("/Resources/PyFile/RwkvCppRun.py", runFile);
+                await Task.Run(() =>
+                {
+                    if (RwkvCppRunStatus == 0 || RwkvCppRunStatus == -1)
+                    {
+                        if (string.IsNullOrEmpty(CppModelName))
+                        {
+                            RwkvCppRunStatus = -1;
+                            return;
+                        }
+                        RwkvCppRunStatus = 2;
+                        StartRwkvCppSocket();
+                        Thread.Sleep(Settings.Default.Socket_StartSleep);
+                        if (RWKV_CPP_PROCESS_CLIENT == null)
+                        {
+                            try
+                            {
+                                RWKV_CPP_PROCESS_CLIENT = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                                IPEndPoint server_ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
+                                RWKV_CPP_PROCESS_CLIENT.Connect(server_ip);
+                            }
+                            catch
+                            {
+                                RWKV_CPP_PROCESS_CLIENT = null;
+                                RwkvCppRunStatus = -1;
+                                return;
+                            }
+                        }
+                        //不限制超时时间
+                        RWKV_CPP_PROCESS_CLIENT.ReceiveTimeout = 0;
+                        int buffer_size = 1024;
+                        JObject jsonObj = new JObject();
+                        jsonObj["operation"] = "start";
+                        jsonObj["PROMPT_TYPE"] = PromptType;
+                        jsonObj["modelName"] = CppModelName.Replace("\\", "/").Trim();
+                        jsonObj["CHAT_LANG"] = CHAT_LANG;
+                        jsonObj["Language"] = Settings.Default.Language.Equals("简体中文") ? "Chinese" : Settings.Default.Language;
+
+                        if (SendMsgObject(RWKV_CPP_PROCESS_CLIENT, jsonObj).Equals("1"))
+                        {
+                            //获取prompt中设定的user和Bot
+                            jsonObj = new JObject();
+                            jsonObj["operation"] = "GetName";
+                            string responseData = SendMsgObject(RWKV_CPP_PROCESS_CLIENT, jsonObj);
+                            string[] names = responseData.Split(",");
+                            if (names.Length == 2)
+                            {
+                                UserName = names[0];
+                                BotName = names[1];
+                            }
+                            RwkvCppRunStatus = 1;
+                        }
+                        else
+                        {
+                            RWKV_CPP_PROCESS_CLIENT = null;
+                            RwkvCppRunStatus = -1;
+                        }
+                    }
+                });
+            }, param =>
+            {
+                if (RwkvCppRunStatus == 0 || RwkvCppRunStatus == -1)
+                    return true;
+                else
+                    return false;
+            });
+        }
+
+        /// <summary>
+        /// 启动RWKV进程
+        /// </summary>
+        public void StartRwkvCppSocket()
+        {
+            if (RwkvCppRunStatus == 2)
+            {
+                OtherUtil.RwkvCppDllRelease(Settings.Default.CpuInstruction);
+                string arguments = string.Format(PipUtils.PyPath + "python.exe {0}", currentDirectory + "rwkvcpp/rwkv/RwkvCppRun.py");
+                RwkvCppProcess = OtherUtil.StartCmdProcess(Settings.Default.IsAutoCmd, arguments, isShow: Settings.Default.ShowRwkvCpp);
+            }
+        }
+        public BtnCommand ModelLanguageCommand
+        {
+            get => new BtnCommand((param) =>
+            {
+                try
+                {
+
+                    Settings.Default.ChatLang = param.ToString();
+                    Settings.Default.Save();
+                }
+                catch
+                {
+
+                }
+            });
+        }
+        public BtnCommand PromptTypeCommand
+        {
+            get => new BtnCommand((param) =>
+            {
+                try
+                {
+
+                    Settings.Default.RwkvCpp_PromptType = param.ToString();
+                    Settings.Default.Save();
+                }
+                catch
+                {
+
+                }
+            });
+        }
     }
 }

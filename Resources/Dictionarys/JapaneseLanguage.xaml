@@ -119,7 +119,7 @@ Python版怠け者バッグ：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com
     <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket_StartSleep">起動遅延(デフォルト3秒)です。</sys:String>
     <sys:String x:Key="Lang_SettingsWindowSocket_Socket_Recv_TimeOut">タイムアウト(ミリ秒)です:</sys:String>
 
-    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">本机Strategy</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">模型Strategy</sys:String>
 
     <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE">PROMPT_TYPE</sys:String>
     <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_QA">問答</sys:String>

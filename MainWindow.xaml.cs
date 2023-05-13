@@ -74,6 +74,11 @@ namespace ChatRWKV_PC
                         MainViewModel mainViewModel = DataContext as MainViewModel;
                         mainViewModel.ModelName = filename.Replace("\\", "/").Replace(".pth", "");
                     }
+                    if (filename.IndexOf(".bin") != -1)
+                    {
+                        MainViewModel mainViewModel = DataContext as MainViewModel;
+                        mainViewModel.CppModelName = filename.Replace("\\", "/");
+                    }
                 }
 
             }

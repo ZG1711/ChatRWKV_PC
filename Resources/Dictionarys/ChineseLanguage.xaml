@@ -126,7 +126,7 @@ Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879
     <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket_StartSleep">启动延迟(默认3秒)</sys:String>
     <sys:String x:Key="Lang_SettingsWindowSocket_Socket_Recv_TimeOut">对话超时(毫秒):</sys:String>
 
-    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">本机Strategy</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">模型Strategy</sys:String>
 
     <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE">PROMPT_TYPE</sys:String>
     <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_QA">问答</sys:String>

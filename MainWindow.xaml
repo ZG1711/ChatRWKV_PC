@@ -15,6 +15,7 @@
         Title="{DynamicResource Lang_MainTitle}" Height="450" Width="800">
     <hc:Window.Resources>
         <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter"/>
+        <converter:String2BoolConverter x:Key="String2BoolConverter"/>
         <Style TargetType="Label" BasedOn="{StaticResource BaseStyle}">
             <Setter Property="FontSize" Value="11" />
         </Style>
@@ -56,18 +57,18 @@
             <ContentControl HorizontalAlignment="Center" Content="{DynamicResource Lang_AboutCopy}" />
             <ContentControl HorizontalAlignment="Center" Content="{DynamicResource Lang_AboutDesc}" />
         </StackPanel>
-
-
-        <GroupBox DockPanel.Dock="Left" Width="600">
-            <GroupBox.HeaderTemplate>
-                <ItemContainerTemplate>
-                    <Label FontSize="14">
-                        <ContentPresenter Content="{DynamicResource Lang_ConfigAreaName}" />
-                    </Label>
-                </ItemContainerTemplate>
-            </GroupBox.HeaderTemplate>
-            <StackPanel >
-                <TextBox Width="Auto" 
+        <TabControl Style="{StaticResource TabControlInLine}" DockPanel.Dock="Left" FontSize="14" Width="650" BorderThickness="1">
+            <TabItem Header="{DynamicResource Lang_MainViewTab_RWKV}">
+                <GroupBox BorderThickness="0">
+                    <GroupBox.HeaderTemplate>
+                        <ItemContainerTemplate>
+                            <Label FontSize="14">
+                                <ContentPresenter Content="{DynamicResource Lang_ConfigAreaName}" />
+                            </Label>
+                        </ItemContainerTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <StackPanel >
+                        <TextBox Width="Auto" 
                          x:Name="ModelName"
                          hc:InfoElement.TitlePlacement="Left"
                          hc:InfoElement.Title="{DynamicResource Lang_MODEL_NAME}"
@@ -78,190 +79,333 @@
                          VerticalAlignment="Center" 
                          Height="35" PreviewDrop="ModelName_PreviewDrop" PreviewDragOver="ModelName_PreviewDragOver"
                          />
-                <Grid Margin="0,5,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.TitlePlacement="Left"
                              hc:InfoElement.Title="{DynamicResource Lang_Strategy}"
                              Height="35" VerticalAlignment="Center" Text="{Binding Strategy}" />
-                    <TextBox Grid.Column="1"
+                            <TextBox Grid.Column="1"
                              Margin="5,0,0,0"
                              hc:InfoElement.TitlePlacement="Left"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.Title="{DynamicResource Lang_CHAT_LANG}"
                              Height="35" VerticalAlignment="Center" Text="{Binding CHAT_LANG}" />
-                    
-                </Grid>
-                
-                <Grid Margin="0,5,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"
+
+                        </Grid>
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.TitlePlacement="Left"
                              hc:InfoElement.Title="{DynamicResource Lang_FREE_GEN_LEN}"
                              Height="35" VerticalAlignment="Center" Text="{Binding TokenCount}" />
-                    <TextBox Grid.Column="1"
+                            <TextBox Grid.Column="1"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.TitlePlacement="Left"
                              hc:InfoElement.Title="{DynamicResource Lang_GEN_TEMP}"
                              hc:InfoElement.Placeholder=""
                              Margin="5,0,0,0"
                              Height="35" VerticalAlignment="Center" Text="{Binding Temperature}" />
-                    <TextBox Grid.Column="2"
+                            <TextBox Grid.Column="2"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.TitlePlacement="Left"
                              hc:InfoElement.Title="{DynamicResource Lang_GEN_TOP_P}"
                              hc:InfoElement.Placeholder=""
                              Margin="5,0,0,0"
                              Height="35" VerticalAlignment="Center" Text="{Binding TopP}" />
-                </Grid>
+                        </Grid>
 
-                <Grid Margin="0,5,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.TitlePlacement="Left"
                              hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_presence}"
                              hc:InfoElement.Placeholder=""
                              Height="35" VerticalAlignment="Center" Text="{Binding PresencePenalty}" />
-                    <TextBox Grid.Column="1"
+                            <TextBox Grid.Column="1"
                              Style="{StaticResource TextBoxExtend}"
                              hc:InfoElement.TitlePlacement="Left"
                              hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_frequency}"
                              hc:InfoElement.Placeholder=""
                              Margin="5,0,0,0"
                              Height="35" VerticalAlignment="Center" Text="{Binding CountPenalty}" />
-                    <CheckBox Grid.Column="2" Margin="5,0,0,0" Content="{DynamicResource Lang_GPU_Turbo}" IsChecked="{Binding IsSpeed}" />
+                            <CheckBox Grid.Column="2" Margin="5,0,0,0" Content="{DynamicResource Lang_GPU_Turbo}" IsChecked="{Binding IsSpeed}" />
 
-                </Grid>
-                <Grid Margin="0,5,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-                <Label Content="{DynamicResource Lang_LibsInfo}"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions >
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="1" Grid.Column="0">
-                        <Label Content="rwkv" />
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
-                            <Label Content="{Binding RwkvCurrentVersion}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_LastVersion}" />
-                            <Label Content="{Binding RwkvLastVersion}" />
-                        </StackPanel>
-                        <Button HorizontalAlignment="Stretch" Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="rwkv"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1">
-                        <Label Content="torch + cu117" />
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
-                            <TextBlock TextWrapping="Wrap" Text="{Binding TorchCurrentVersion}" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_LastVersion}" />
-                            <TextBlock TextWrapping="Wrap" Text="{Binding TorchLastVersion}" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <Button  Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="torch"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="2">
-                        <Label Content="tokenizers" />
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
-                            <Label Content="{Binding TokenizersCurrentVersion}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_LastVersion}" />
-                            <Label Content="{Binding TokenizersLastVersion}" />
-                        </StackPanel>
-                        <Button Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="tokenizers"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="3">
-                        <Label Content="numpy" />
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_CurrentVersion}" />
-                            <Label Content="{Binding NumpyCurrentVersion}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{DynamicResource Lang_LastVersion}" />
-                            <Label Content="{Binding NumpyLastVersion}" />
-                        </StackPanel>
-                        <Button  Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="numpy"/>
-                    </StackPanel>
-                    <Button Grid.Row="2" Grid.Column="0" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.org/simple" Content="{DynamicResource Lang_SwitchDefault}" Height="32" Margin="5,0"/>
-                    <Button Grid.Row="2" Grid.Column="1" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.tuna.tsinghua.edu.cn/simple" Content="{DynamicResource Lang_SwitchTsinghua}" Height="32" Margin="5,5,5,0"/>
-                    <Button Grid.Row="2" Grid.Column="2" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.mirrors.ustc.edu.cn/simple/" Content="{DynamicResource Lang_SwitchUSTC}" Height="32" Margin="5,5,5,0"/>
-                    <Button Grid.Row="2" Grid.Column="3" Command="{Binding AllInstallBtnCommand,Mode=OneWay}" Content="{DynamicResource Lang_AllInstall}" Height="32" Margin="5,5,5,0" />
-                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding GitHubRWKDownloadCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="{DynamicResource Lang_DownloadGitHub}" Height="32" Margin="5,0" />
-                    <Button Grid.Row="3" Grid.Column="1" Command="{Binding GitHubRWKVUpdateCommand,Mode=OneWay}"  CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="{DynamicResource Lang_UpdateGitHub}" Height="32" Margin="5,5,5,0"/>
-                    <Button Grid.Row="3" Grid.Column="2" Command="{Binding EditBtnCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="EditBtn" Content="{DynamicResource Lang_EditV2Chat}" Height="32" Margin="5,5,5,0" />
-                    <Button Grid.Row="3" Grid.Column="3" Command="{Binding StartGitHubChatPyCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="StartChatBtn" Content="{DynamicResource Lang_StartV2Chat}" Height="32" Margin="5,5,5,0" />
-                </Grid>
-                <TextBlock Margin="0,5">
+                        </Grid>
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                        <Label Content="{DynamicResource Lang_LibsInfo}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions >
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1" Grid.Column="0">
+                                <Label Content="rwkv" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                                    <Label Content="{Binding RwkvCurrentVersion}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_LastVersion}" />
+                                    <Label Content="{Binding RwkvLastVersion}" />
+                                </StackPanel>
+                                <Button HorizontalAlignment="Stretch" Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="rwkv"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1">
+                                <Label Content="torch + cu117" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding TorchCurrentVersion}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_LastVersion}" />
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding TorchLastVersion}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <Button  Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="torch"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="2">
+                                <Label Content="tokenizers" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                                    <Label Content="{Binding TokenizersCurrentVersion}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_LastVersion}" />
+                                    <Label Content="{Binding TokenizersLastVersion}" />
+                                </StackPanel>
+                                <Button Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="tokenizers"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="3">
+                                <Label Content="numpy" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_CurrentVersion}" />
+                                    <Label Content="{Binding NumpyCurrentVersion}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{DynamicResource Lang_LastVersion}" />
+                                    <Label Content="{Binding NumpyLastVersion}" />
+                                </StackPanel>
+                                <Button  Content="{DynamicResource Lang_UpdateLibBtn}" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="numpy"/>
+                            </StackPanel>
+                            <Button Grid.Row="2" Grid.Column="0" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.org/simple" Content="{DynamicResource Lang_SwitchDefault}" Height="32" Margin="5,0"/>
+                            <Button Grid.Row="2" Grid.Column="1" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.tuna.tsinghua.edu.cn/simple" Content="{DynamicResource Lang_SwitchTsinghua}" Height="32" Margin="5,5,5,0"/>
+                            <Button Grid.Row="2" Grid.Column="2" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.mirrors.ustc.edu.cn/simple/" Content="{DynamicResource Lang_SwitchUSTC}" Height="32" Margin="5,5,5,0"/>
+                            <Button Grid.Row="2" Grid.Column="3" Command="{Binding AllInstallBtnCommand,Mode=OneWay}" Content="{DynamicResource Lang_AllInstall}" Height="32" Margin="5,5,5,0" />
+                            <Button Grid.Row="3" Grid.Column="0" Command="{Binding GitHubRWKDownloadCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="{DynamicResource Lang_DownloadGitHub}" Height="32" Margin="5,0" />
+                            <Button Grid.Row="3" Grid.Column="1" Command="{Binding GitHubRWKVUpdateCommand,Mode=OneWay}"  CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="{DynamicResource Lang_UpdateGitHub}" Height="32" Margin="5,5,5,0"/>
+                            <Button Grid.Row="3" Grid.Column="2" Command="{Binding EditBtnCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="EditBtn" Content="{DynamicResource Lang_EditV2Chat}" Height="32" Margin="5,5,5,0" />
+                            <Button Grid.Row="3" Grid.Column="3" Command="{Binding StartGitHubChatPyCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="StartChatBtn" Content="{DynamicResource Lang_StartV2Chat}" Height="32" Margin="5,5,5,0" />
+                        </Grid>
+                        <TextBlock Margin="0,5">
                     <ContentPresenter  Content="{DynamicResource Lang_ParamDesc}" />
-                </TextBlock>
-                <Grid>
-                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Text="{DynamicResource Lang_StartFailed}" Foreground="Red" HorizontalAlignment="Center" />
-                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-2}" Text="{DynamicResource Lang_StartFailed}" Foreground="Red" HorizontalAlignment="Center" />
-                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Text="{DynamicResource Lang_NotRunning}" Foreground="#FF0FBBBB" HorizontalAlignment="Center"  />
-                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}" Text="{DynamicResource Lang_Running}" Foreground="Green" HorizontalAlignment="Center" />
-                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Text="{DynamicResource Lang_Starting}" Foreground="Orange" HorizontalAlignment="Center" />
-                </Grid>
-                <Grid Margin="0,5" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
-                        <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
-                        <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
-                        <Button Content="{DynamicResource Lang_StopChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}"  Command="{Binding StopBtnCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
-                    </Grid>
-                    <Button Margin="5,0" Content="{DynamicResource Lang_ConverterModel}" Grid.Column="1" Command="{Binding ConverterModelCommand}"/>
-                    <Button Content="{DynamicResource Lang_SettingsWindowTextBlock_GetStrategy}" Grid.Column="2" Command="{Binding GetStrategyCommand}"/>
-                </Grid>
-                <Grid HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="{DynamicResource Lang_ConverterModelDir}" Command="{Binding OpenFolderCommand}" CommandParameter="ConverterModel" />
-                    <Button Grid.Column="1" Margin="5,0" Content="{DynamicResource Lang_RecordDir}" Command="{Binding OpenFolderCommand}" CommandParameter="SaveRecocd"/>
-                    <Button Grid.Column="2" Content="{DynamicResource Lang_SaveConfig}" Command="{Binding SaveSettingsBtnCommand}"/>
-                </Grid>
-            </StackPanel>
-        </GroupBox>
+                        </TextBlock>
+                        <Grid>
+                            <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Text="{DynamicResource Lang_StartFailed}" Foreground="Red" HorizontalAlignment="Center" />
+                            <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-2}" Text="{DynamicResource Lang_StartFailed}" Foreground="Red" HorizontalAlignment="Center" />
+                            <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Text="{DynamicResource Lang_NotRunning}" Foreground="#FF0FBBBB" HorizontalAlignment="Center"  />
+                            <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}" Text="{DynamicResource Lang_Running}" Foreground="Green" HorizontalAlignment="Center" />
+                            <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Text="{DynamicResource Lang_Starting}" Foreground="Orange" HorizontalAlignment="Center" />
+                        </Grid>
+                        <Grid Margin="0,5" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                                <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                                <Button Content="{DynamicResource Lang_RuningChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                                <Button Content="{DynamicResource Lang_StopChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}"  Command="{Binding StopBtnCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                            </Grid>
+                            <Button Margin="5,0" Content="{DynamicResource Lang_ConverterModel}" Grid.Column="1" Command="{Binding ConverterModelCommand}"/>
+                            <Button Content="{DynamicResource Lang_SettingsWindowTextBlock_GetStrategy}" Grid.Column="2" Command="{Binding GetStrategyCommand}"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="{DynamicResource Lang_ConverterModelDir}" Command="{Binding OpenFolderCommand}" CommandParameter="ConverterModel" />
+                            <Button Grid.Column="1" Margin="5,0" Content="{DynamicResource Lang_RecordDir}" Command="{Binding OpenFolderCommand}" CommandParameter="SaveRecocd"/>
+                            <Button Grid.Column="2" Content="{DynamicResource Lang_SaveConfig}" Command="{Binding SaveSettingsBtnCommand}"/>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="{DynamicResource Lang_MainViewTab_RWKV_cpp}">
+                <GroupBox Header="{DynamicResource Lang_ConfigAreaName}" FontSize="14" BorderThickness="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel>
+                            <TextBox Width="Auto"
+                                 hc:InfoElement.TitlePlacement="Left"
+                                 hc:InfoElement.Title="{DynamicResource Lang_MODEL_NAME}"
+                                 hc:InfoElement.Placeholder="{DynamicResource Lang_MODEL_NAME_Placeholder}"
+                                 Style="{StaticResource TextBoxExtend}"
+                                 AllowDrop="True" 
+                                 Text="{Binding CppModelName}"
+                                 VerticalAlignment="Center" 
+                                 FontSize="12"
+                                 Height="35" PreviewDrop="ModelName_PreviewDrop" PreviewDragOver="ModelName_PreviewDragOver" />
+                            <Grid Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{DynamicResource Lang_CHAT_LANG}" VerticalAlignment="Center"/>
+                                <hc:ButtonGroup Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center">
+                                    <RadioButton Content="Chinese" Command="{Binding ModelLanguageCommand}" CommandParameter="Chinese" IsChecked="{Binding CHAT_LANG,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Chinese}"  />
+                                    <RadioButton Content="English" Command="{Binding ModelLanguageCommand}" CommandParameter="English" IsChecked="{Binding CHAT_LANG,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=English}"  />
+                                    <RadioButton Content="Japanese" Command="{Binding ModelLanguageCommand}" CommandParameter="Japanese" IsChecked="{Binding CHAT_LANG,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Japanese}" />
+                                </hc:ButtonGroup>
+                            </Grid>
+                            <Grid Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{DynamicResource Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE}" VerticalAlignment="Center"/>
+                                <hc:ButtonGroup Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center">
+                                    <RadioButton Content="{DynamicResource Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_QA}" Command="{Binding PromptTypeCommand}" CommandParameter="QA" IsChecked="{Binding PromptType,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=QA}"  />
+                                    <RadioButton Content="{DynamicResource Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_Chat}" Command="{Binding PromptTypeCommand}" CommandParameter="Chat" IsChecked="{Binding PromptType,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Chat}"  />
+                                </hc:ButtonGroup>
+                            </Grid>
+                            <Grid Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.TitlePlacement="Left"
+                                     FontSize="12"
+                                     hc:InfoElement.Title="{DynamicResource Lang_FREE_GEN_LEN}"
+                                     Height="35" VerticalAlignment="Center" Text="{Binding TokenCount}" />
+                                <TextBox Grid.Column="1"
+                                     Margin="5,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.TitlePlacement="Left"
+                                     hc:InfoElement.Title="{DynamicResource Lang_GEN_TEMP}"
+                                     hc:InfoElement.Placeholder=""
+                                     FontSize="12"
+                                     Height="35" VerticalAlignment="Center" Text="{Binding Temperature}" />
+                                <TextBox Grid.Column="2"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.TitlePlacement="Left"
+                                     hc:InfoElement.Title="{DynamicResource Lang_GEN_TOP_P}"
+                                     hc:InfoElement.Placeholder=""
+                                     Margin="5,0,0,0"
+                                     FontSize="12"
+                                     Height="35" VerticalAlignment="Center" Text="{Binding TopP}" />
 
+                            </Grid>
+
+                            <Grid Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.TitlePlacement="Left"
+                                     hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_presence}"
+                                     hc:InfoElement.Placeholder=""
+                                     FontSize="12"
+                                     Height="35" VerticalAlignment="Center" Text="{Binding PresencePenalty}" />
+                                <TextBox Grid.Column="1"
+                                     FontSize="12"
+                                     Margin="5,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.TitlePlacement="Left"
+                                     hc:InfoElement.Title="{DynamicResource Lang_GEN_alpha_frequency}"
+                                     hc:InfoElement.Placeholder=""
+                                     Height="35" VerticalAlignment="Center" Text="{Binding CountPenalty}" />
+                            </Grid>
+                            <Grid Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.TitlePlacement="Left"
+                                     hc:InfoElement.Title="{DynamicResource Lang_MainWindowTextBlock_RWKV_cpp_Quantize_Format}"
+                                     hc:InfoElement.Placeholder=""
+                                     FontSize="12"
+                                     Height="35" VerticalAlignment="Center" Text="{Binding QuantizeFormat}" />
+                            </Grid>
+
+                        </StackPanel>
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <TextBlock Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Text="{DynamicResource Lang_StartFailed}" Foreground="Red" HorizontalAlignment="Center" />
+                                <TextBlock Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Text="{DynamicResource Lang_NotRunning}" Foreground="#FF0FBBBB" HorizontalAlignment="Center"  />
+                                <TextBlock Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}" Text="{DynamicResource Lang_Running}" Foreground="Green" HorizontalAlignment="Center" />
+                                <TextBlock Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Text="{DynamicResource Lang_Starting}" Foreground="Orange" HorizontalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Content="{DynamicResource Lang_MainWindowButton_RWKV_cpp_Run}" Command="{Binding RwkvCppRunCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                                <Button Grid.Column="0" Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Content="{DynamicResource Lang_MainWindowButton_RWKV_cpp_Run}" Command="{Binding RwkvCppRunCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                                <Button Grid.Column="0" Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Content="{DynamicResource Lang_MainWindowButton_RWKV_cpp_Run}" Command="{Binding RwkvCppRunCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                                <Button Grid.Column="0" Visibility="{Binding RwkvCppRunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}" Content="{DynamicResource Lang_MainWindowButton_RWKV_cpp_Stop}" Command="{Binding StopBtnCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                                <Button Grid.Column="1" Content="{DynamicResource Lang_MainWindowButton_RWKV_cpp_Quantize}" Command="{Binding RwkvCppQuantizeCommand}" />
+                                <Button Grid.Column="2" Content="{DynamicResource Lang_SaveConfig}" Command="{Binding SaveSettingsBtnCommand}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
+        
         <Grid DockPanel.Dock="Right" Margin="10,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition />

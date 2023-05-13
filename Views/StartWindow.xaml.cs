@@ -65,6 +65,13 @@ namespace ChatRWKV_PC.Views
                         //}),
                         Task.Run(() =>
                         {
+                            if (!Directory.Exists(current + "rwkvcpp"))
+                            {
+                                OtherUtil.RelativeZipFileRelease("/Resources/Other/rwkvcpp.zip", current);
+                            }
+                        }),
+                        Task.Run(() =>
+                        {
                             if (!Directory.Exists(current + "prompt"))
                             {
                                 OtherUtil.RelativeZipFileRelease("/Resources/Other/prompt.zip", current);

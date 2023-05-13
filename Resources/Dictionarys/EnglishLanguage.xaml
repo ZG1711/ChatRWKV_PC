@@ -121,7 +121,7 @@ Source code need to modify their own chat.py file, this software can be started 
     <sys:String x:Key="Lang_SettingsWindowTextBlock_Socket_StartSleep">Start Sleep(Defaul 3 seconds)</sys:String>
     <sys:String x:Key="Lang_SettingsWindowSocket_Socket_Recv_TimeOut">Dialogue timeout(millisecond):</sys:String>
 
-    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">Get Strategy</sys:String>
+    <sys:String x:Key="Lang_SettingsWindowTextBlock_GetStrategy">Model Strategy</sys:String>
 
     <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE">PROMPT_TYPE</sys:String>
     <sys:String x:Key="Lang_MainWindowTextBlock_RWKV_cpp_PROMPT_TYPE_QA">Q&amp;A</sys:String>

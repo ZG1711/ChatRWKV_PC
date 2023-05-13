@@ -1469,5 +1469,22 @@ namespace ChatRWKV_PC.ViewModels
                 RWKV_CPP_PROCESS_CLIENT = null;
             }
         }
+        public BtnCommand GetStrategyCommand
+        {
+            get => new BtnCommand(param =>
+            {
+                Uri uri = new Uri("/Resources/PyFile/Check_Strategy.py", UriKind.Relative);
+                StreamResourceInfo info = Application.GetResourceStream(uri);
+                using (var stream = new FileStream(currentDirectory + "Check_Strategy.py", FileMode.Create))
+                {
+                    //输出文件
+                    info.Stream.CopyTo(stream);
+                }
+                //创建进程
+                string content = File.ReadAllText("Check_Strategy.py");
+                File.WriteAllText("Check_Strategy.py", content.Replace("{Model_Name}", ModelName + ".pth"));
+                OtherUtil.StartCmdProcess(false, PipUtils.PyPath + "python Check_Strategy.py");
+            });
+        }
     }
 }

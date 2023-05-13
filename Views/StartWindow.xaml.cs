@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatRWKV_PC.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -52,72 +53,42 @@ namespace ChatRWKV_PC.Views
                         {
                             if (!Directory.Exists(current + "Python3.10"))
                             {
-                                Uri uri = new Uri("/Resources/Other/Python3.10.zip", UriKind.Relative);
-                                StreamResourceInfo info = Application.GetResourceStream(uri);
-                                using (ZipArchive archive = new ZipArchive(info.Stream))
-                                {
-                                    archive.ExtractToDirectory(current);
-                                }
+                                OtherUtil.RelativeZipFileRelease("/Resources/Other/Python3.10.zip", current);
                             }
                         }),
                         //Task.Run(() =>
                         //{
                         //    if (!Directory.Exists(current + "Git"))
                         //    {
-                        //        Uri uri = new Uri("/Resources/Other/Git.zip", UriKind.Relative);
-                        //        StreamResourceInfo info = Application.GetResourceStream(uri);
-                        //        using (ZipArchive archive = new ZipArchive(info.Stream))
-                        //        {
-                        //            archive.ExtractToDirectory(current);
-                        //        }
+                        //        OtherUtil.RelativeZipFileRelease("/Resources/Other/Git.zip", current);
                         //    }
                         //}),
                         Task.Run(() =>
                         {
                             if (!Directory.Exists(current + "prompt"))
                             {
-                                Uri uri = new Uri("/Resources/Other/prompt.zip", UriKind.Relative);
-                                StreamResourceInfo info = Application.GetResourceStream(uri);
-                                using (ZipArchive archive = new ZipArchive(info.Stream))
-                                {
-                                    archive.ExtractToDirectory(current);
-                                }
+                                OtherUtil.RelativeZipFileRelease("/Resources/Other/prompt.zip", current);
                             }
                         }),
                         Task.Run(() =>
                         {
                             if (!File.Exists(current + "20B_tokenizer.json"))
                             {
-                                Uri uri = new Uri("/Resources/Other/20B_tokenizer.json", UriKind.Relative);
-                                StreamResourceInfo info = Application.GetResourceStream(uri);
-                                using (var stream = new FileStream(current + "20B_tokenizer.json", FileMode.OpenOrCreate))
-                                {
-                                    info.Stream.CopyTo(stream);
-                                }
+                                OtherUtil.RelativeFileRelease("/Resources/Other/20B_tokenizer.json", current + "20B_tokenizer.json");
                             }
                         }),
 
                         Task.Run(() =>
                         {
-                            
-                                Uri uri = new Uri("/Resources/PyFile/Run.py", UriKind.Relative);
-                                StreamResourceInfo info = Application.GetResourceStream(uri);
-                                using (var stream = new FileStream(current + "Run.py", FileMode.Create))
-                                {
-                                    info.Stream.CopyTo(stream);
-                                }
-                            
+                            if(File.Exists("Run.py"))
+                                File.Delete("Run.py");
+                            OtherUtil.RelativeFileRelease("/Resources/PyFile/Run.py", current + "Run.py");
                         }),
                         Task.Run(() =>
                         {
                             if (!File.Exists(current + "convert_model.py"))
                             {
-                                Uri uri = new Uri("/Resources/PyFile/convert_model.py", UriKind.Relative);
-                                StreamResourceInfo info = Application.GetResourceStream(uri);
-                                using (var stream = new FileStream(current + "convert_model.py", FileMode.OpenOrCreate))
-                                {
-                                    info.Stream.CopyTo(stream);
-                                }
+                                OtherUtil.RelativeFileRelease("/Resources/PyFile/convert_model.py", current + "convert_model.py");
                             }
                         })
                 };

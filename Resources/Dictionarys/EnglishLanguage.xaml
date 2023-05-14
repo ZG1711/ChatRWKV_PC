@@ -4,6 +4,8 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="Lang_MainTitle">ChatRWKV Desktop</sys:String>
     <sys:String x:Key="Lang_About">About</sys:String>
+    <sys:String x:Key="Lang_MainViewTab_RWKV">ChatRWKV</sys:String>
+    <sys:String x:Key="Lang_MainViewTab_RWKV_cpp">RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_ConfigAreaName">Configs</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME">ModelName</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME_Placeholder">drag in file</sys:String>

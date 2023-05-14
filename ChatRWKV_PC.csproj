@@ -8,8 +8,8 @@
     <Company>梦想遥不可及网吧</Company>
     <Authors>修计算机的网管</Authors>
     <Copyright>© 2023 修计算机的网管</Copyright>
-    <AssemblyVersion>3.1.7.1</AssemblyVersion>
-    <FileVersion>3.1.7.1</FileVersion>
+    <AssemblyVersion>3.2.8.1</AssemblyVersion>
+    <FileVersion>3.2.8.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

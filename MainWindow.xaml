@@ -68,17 +68,25 @@
                         </ItemContainerTemplate>
                     </GroupBox.HeaderTemplate>
                     <StackPanel >
-                        <TextBox Width="Auto" 
-                         x:Name="ModelName"
-                         hc:InfoElement.TitlePlacement="Left"
-                         hc:InfoElement.Title="{DynamicResource Lang_MODEL_NAME}"
-                         hc:InfoElement.Placeholder="{DynamicResource Lang_MODEL_NAME_Placeholder}"
-                         Style="{StaticResource TextBoxExtend}"
-                         AllowDrop="True" 
-                         Text="{Binding ModelName}"
-                         VerticalAlignment="Center" 
-                         Height="35" PreviewDrop="ModelName_PreviewDrop" PreviewDragOver="ModelName_PreviewDragOver"
-                         />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Width="Auto" 
+                                     x:Name="ModelName"
+                                     hc:InfoElement.TitlePlacement="Left"
+                                     hc:InfoElement.Title="{DynamicResource Lang_MODEL_NAME}"
+                                     hc:InfoElement.Placeholder="{DynamicResource Lang_MODEL_NAME_Placeholder}"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     AllowDrop="True" 
+                                     Text="{Binding ModelName,UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalAlignment="Center" 
+                                     FontSize="12"
+                                     Height="35" PreviewDrop="ModelName_PreviewDrop" PreviewDragOver="ModelName_PreviewDragOver"
+                                     />
+                            <Button Grid.Column="1" Height="35" Content="{DynamicResource Lang_MainView_Button_ModelDesc}" Command="{Binding DialogCommand}"/>
+                        </Grid>
                         <Grid Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -290,9 +298,9 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="{DynamicResource Lang_CHAT_LANG}" VerticalAlignment="Center"/>
                                 <hc:ButtonGroup Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center">
-                                    <RadioButton Content="Chinese" Command="{Binding ModelLanguageCommand}" CommandParameter="Chinese" IsChecked="{Binding CHAT_LANG,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Chinese}"  />
-                                    <RadioButton Content="English" Command="{Binding ModelLanguageCommand}" CommandParameter="English" IsChecked="{Binding CHAT_LANG,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=English}"  />
-                                    <RadioButton Content="Japanese" Command="{Binding ModelLanguageCommand}" CommandParameter="Japanese" IsChecked="{Binding CHAT_LANG,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Japanese}" />
+                                    <RadioButton Content="Chinese" Command="{Binding CppModelLanguageCommand}" CommandParameter="Chinese" IsChecked="{Binding CppLANGUAGE,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Chinese}"  />
+                                    <RadioButton Content="English" Command="{Binding CppModelLanguageCommand}" CommandParameter="English" IsChecked="{Binding CppLANGUAGE,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=English}"  />
+                                    <RadioButton Content="Japanese" Command="{Binding CppModelLanguageCommand}" CommandParameter="Japanese" IsChecked="{Binding CppLANGUAGE,Mode=OneWay,Converter={StaticResource String2BoolConverter},ConverterParameter=Japanese}" />
                                 </hc:ButtonGroup>
                             </Grid>
                             <Grid Margin="0,5,0,0">

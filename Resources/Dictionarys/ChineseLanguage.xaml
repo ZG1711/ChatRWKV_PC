@@ -8,6 +8,12 @@
     <sys:String x:Key="Lang_MainViewTab_RWKV_cpp">RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_ConfigAreaName">配置区</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME">模型路径</sys:String>
+    <sys:String x:Key="Lang_MainView_Button_ModelDesc">关于模型</sys:String>
+    <sys:String x:Key="Lang_MainView_Dialog_ModelDesc" xml:space="preserve">
+Raven 模型：适合直接聊天，适合 +i 指令。有很多种语言的版本，看清楚用哪个。适合聊天、完成任务、写代码。可以作为任务去写文稿、大纲、故事、诗歌等等，但文笔不如 testNovel 系列模型。&#10;
+Novel-ChnEng 模型：中英文小说模型，可以用 +gen 生成世界设定（如果会写 prompt，可以控制下文剧情和人物），可以写科幻奇幻。不适合聊天，不适合 +i 指令。&#10;
+Novel-Chn 模型：纯中文网文模型，只能用 +gen 续写网文（不能生成世界设定等等），但是写网文写得更好（也更小白文，适合写男频女频）。不适合聊天，不适合 +i 指令。&#10;
+Novel-ChnEng-ChnPro 模型：将 Novel-ChnEng 在高质量作品微调（名著，科幻，奇幻，古典，翻译，等等）。</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME_Placeholder">可拖入文件到本文本框自动处理</sys:String>
     <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
     <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>

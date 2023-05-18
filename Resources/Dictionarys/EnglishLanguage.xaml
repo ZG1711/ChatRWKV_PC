@@ -8,6 +8,12 @@
     <sys:String x:Key="Lang_MainViewTab_RWKV_cpp">RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_ConfigAreaName">Configs</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME">ModelName</sys:String>
+    <sys:String x:Key="Lang_MainView_Button_ModelDesc">About Models</sys:String>
+    <sys:String x:Key="Lang_MainView_Dialog_ModelDesc" xml:space="preserve">
+Raven model: suitable for direct chat, suitable for +i instructions. There are many languages available, so be clear about which one to use. Good for chatting, getting things done, and writing code. It can be used as a task to write manuscripts, Outlines, stories, poems, etc., but not as well as testNovel models. &#10;
+Novel-chneng model: Chinese and English Novel model, can use +gen to generate world Settings (if you can write prompt, you can control the following plot and characters), can write science fiction and fantasy. Not suitable for chat, not suitable for +i commands. &#10;
+Novel-Chn model: Pure Chinese net text model, can only use +gen to continue the net text (can not generate world Settings and so on), but write the net text to write better (also smaller white text, suitable for writing male frequency female frequency). Not suitable for chat, not suitable for +i commands. &#10;
+Novel-chneng-chnpro model: Fine-tune Novel-ChnEng on high-quality works (classics, sci-fi, fantasy, classics, translations, etc.).</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME_Placeholder">drag in file</sys:String>
     <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
     <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>

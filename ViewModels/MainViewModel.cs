@@ -1685,5 +1685,13 @@ namespace ChatRWKV_PC.ViewModels
                 OutCount = 0;
             });
         }
+
+        public BtnCommand DialogCommand
+        {
+            get => new BtnCommand(param =>
+            {
+                System.Windows.MessageBox.Show(Application.Current.FindResource("Lang_MainView_Dialog_ModelDesc") as string);
+            });
+        }
     }
 }

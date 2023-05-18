@@ -8,6 +8,12 @@
     <sys:String x:Key="Lang_MainViewTab_RWKV_cpp">RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_ConfigAreaName">構成エリア</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME">モデル パス</sys:String>
+    <sys:String x:Key="Lang_MainView_Button_ModelDesc">モデルについてです</sys:String>
+    <sys:String x:Key="Lang_MainView_Dialog_ModelDesc" xml:space="preserve">
+Ravenモデル:直接チャットに適しています+iコマンドに適していますたくさんの言語のバージョンがあります。チャット、タスク、コード作成に適しています。原稿やアウトライン、ストーリー、詩などをタスクとして書くことはできますが、「testNovel」ほどではありません。&#10;。
+novel-chnengモデル:中英小説モデル、+genで世界設定を生成することができます(promptを書くことができれば、以下のストーリーと人物を制御することができます)、sfファンタジーを書くことができます。チャットや+iコマンドには向いていません&#10;。
+novel-chn模型:純中文網文模型、+gen継続して網文を書くことしかできません(生成できません世界設定など)、しかし網文を書くのはもっと上手です(ももっと小白文、適して書く男性の周波数と女性の周波数)。チャットや+iコマンドには向いていません&#10;。
+novel-chneng-chnproモデル:novel-chnengを高品質の作品(名作、sf、ファンタジー、古典、翻訳など)に微調整します。</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME_Placeholder">自動処理のために、ファイルをこのテキスト ボックスにドラッグできます</sys:String>
     <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
     <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>

@@ -746,6 +746,8 @@ namespace ChatRWKV_PC.ViewModels
             {
                 Button btn = (Button)param;
                 Socket? socket = null;
+                if (isSend)
+                    return;
                 if (RunStatus == 1)
                 {
                     socket = RWKV_PROCESS_CLIENT;
@@ -831,6 +833,8 @@ namespace ChatRWKV_PC.ViewModels
             {
                 Button btn = (Button)param;
                 Socket? socket = null;
+                if (isSend)
+                    return;
                 if (RunStatus == 1)
                 {
                     socket = RWKV_PROCESS_CLIENT;

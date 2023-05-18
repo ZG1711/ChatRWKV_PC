@@ -76,6 +76,7 @@ Python版怠け者バッグ：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com
     <sys:String x:Key="Lang_Input">ユーザ入力域</sys:String>
     <sys:String x:Key="Lang_NotRunMsg">稼働していません ChatRWKV</sys:String>
     <sys:String x:Key="Lang_SendMessage">発送(Enter)</sys:String>
+    <sys:String x:Key="Lang_ClearChat">対話を排除</sys:String>
     <sys:String x:Key="Lang_BatchSendMessage">大量発送です(F1)</sys:String>
     <sys:String x:Key="Lang_CommandDesc">命令説明です</sys:String>
     <sys:String x:Key="Lang_SaveRecord">会話を保存します</sys:String>
@@ -87,6 +88,7 @@ Python版怠け者バッグ：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com
     <sys:String x:Key="Lang_Cancel">Cancel</sys:String>
     <sys:String x:Key="Lang_CommandDescStr" xml:space="preserve">
 直接入力 --> ボットとチャットする．改行には\\nを使用してください．.&#10;
++frl -->ファイルの内容を読み込んで、一行一問、フォーマット+frl filenameです。一括送信のみ有効です。&#10;
 + --> ボットに前回のチャットの内容を変更させる．.&#10;
 +reset --> 対話のリセット．メモリをリセットするために，+resetを定期的に実行してください．.&#10;
 +i インストラクトの入力 --> チャットの文脈を無視して独立した質問を行う．改行には\\nを使用してください．.&#10;

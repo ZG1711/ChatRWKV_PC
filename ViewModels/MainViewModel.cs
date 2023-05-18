@@ -853,7 +853,21 @@ namespace ChatRWKV_PC.ViewModels
                 btn.IsEnabled = false;
                 IsSend = true;
                 //批量处理要输入的消息
-                string[] inputs = InputMsg.Split("\n");
+                string key = "+frl ";
+                string[] inputs = new string[0];
+                if (InputMsg.StartsWith(key))
+                {
+                    string filename = InputMsg.Substring(key.Length);
+                    if (File.Exists(filename))
+                        inputs = File.ReadAllLines(filename);
+                    else
+                    {
+                        System.Windows.MessageBox.Show($"Not File:{filename}");
+                    }
+                }
+                else
+                    inputs = InputMsg.Split("\n");
+
                 //发送消息部分代码
                 await Task.Run(() =>
                 {
@@ -1629,6 +1643,42 @@ namespace ChatRWKV_PC.ViewModels
                 {
 
                 }
+            });
+        }
+        public string cpp_LANGUAGE = Settings.Default.Cpp_LANGUAGE;
+
+        public string CppLANGUAGE
+        {
+            get => cpp_LANGUAGE;
+            set
+            {
+                cpp_LANGUAGE = value;
+                OnPropertyChanged(nameof(CppLANGUAGE));
+            }
+        }
+        public BtnCommand CppModelLanguageCommand
+        {
+            get => new BtnCommand((param) =>
+            {
+                try
+                {
+
+                    Settings.Default.Cpp_LANGUAGE = param.ToString();
+                    Settings.Default.Save();
+                }
+                catch
+                {
+
+                }
+            });
+        }
+
+        public BtnCommand ClearChatCommand
+        {
+            get => new BtnCommand(param =>
+            {
+                ChatInfoModels.Clear();
+                OutCount = 0;
             });
         }
     }

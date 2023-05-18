@@ -110,5 +110,19 @@ namespace ChatRWKV_PC
 
             }
         }
+        private void TextBox_PreviewDrop(object sender, DragEventArgs e)
+        {
+            //文件拖入事件处理
+            TextBox textBox = (TextBox)sender;
+
+            if (textBox.IsLoaded)
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    textBox.Text += ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString().Replace("\\", "/");
+                }
+
+            }
+        }
     }
 }

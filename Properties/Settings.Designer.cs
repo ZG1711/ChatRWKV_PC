@@ -262,5 +262,17 @@ namespace ChatRWKV_PC.Properties {
                 this["FontFamilyName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Chinese")]
+        public string Cpp_LANGUAGE {
+            get {
+                return ((string)(this["Cpp_LANGUAGE"]));
+            }
+            set {
+                this["Cpp_LANGUAGE"] = value;
+            }
+        }
     }
 }

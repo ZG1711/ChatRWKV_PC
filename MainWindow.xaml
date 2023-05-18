@@ -249,7 +249,7 @@
                                 <Button Content="{DynamicResource Lang_StopChatRWKV}" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}"  Command="{Binding StopBtnCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                             </Grid>
                             <Button Margin="5,0" Content="{DynamicResource Lang_ConverterModel}" Grid.Column="1" Command="{Binding ConverterModelCommand}"/>
-                            <Button Content="{DynamicResource Lang_SettingsWindowTextBlock_GetStrategy}" Grid.Column="2" Command="{Binding GetStrategyCommand}"/>
+                            <Button Content="{DynamicResource Lang_MainWindowTextBlock_GetStrategy}" Grid.Column="2" Command="{Binding GetStrategyCommand}"/>
                         </Grid>
                         <Grid HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
@@ -526,7 +526,14 @@
                         <ColumnDefinition Width="120"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Text="{Binding InputMsg,UpdateSourceTrigger=PropertyChanged}" FontSize="14" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" >
+                    <TextBox Text="{Binding InputMsg,UpdateSourceTrigger=PropertyChanged}" 
+                             FontSize="14"
+                             AllowDrop="True"
+                             TextWrapping="Wrap" 
+                             AcceptsReturn="True" 
+                             PreviewDrop="TextBox_PreviewDrop" 
+                             PreviewDragOver="ModelName_PreviewDragOver"
+                             VerticalContentAlignment="Top" >
                         <TextBox.InputBindings>
                             <KeyBinding Key="F5" Command="{Binding SendMessageCommand}" CommandParameter="{Binding ElementName=SendMessage_Button}" />
                             <KeyBinding Key="F1" Command="{Binding BatchSendMessageCommand}" CommandParameter="{Binding ElementName=BatchSendMessage_Button}" />

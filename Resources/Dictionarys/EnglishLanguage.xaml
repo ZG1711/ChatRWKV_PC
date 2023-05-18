@@ -78,6 +78,7 @@ Source code need to modify their own chat.py file, this software can be started 
     <sys:String x:Key="Lang_Input">Input</sys:String>
     <sys:String x:Key="Lang_NotRunMsg">Not running ChatRWKV</sys:String>
     <sys:String x:Key="Lang_SendMessage">Send(Enter)</sys:String>
+    <sys:String x:Key="Lang_ClearChat">Clear chat</sys:String>
     <sys:String x:Key="Lang_BatchSendMessage">BatchSend(F1)</sys:String>
     <sys:String x:Key="Lang_CommandDesc">CommandDesc</sys:String>
     <sys:String x:Key="Lang_SaveRecord">SaveRecord</sys:String>
@@ -88,6 +89,7 @@ Source code need to modify their own chat.py file, this software can be started 
     <sys:String x:Key="Lang_OK">OK</sys:String>
     <sys:String x:Key="Lang_Cancel">Cancel</sys:String>
     <sys:String x:Key="Lang_CommandDescStr" xml:space="preserve">
++frl --> Read file contents, one question per line, format +frl filename.Batch only works&#10;
 + --> alternate chat reply&#10;
 +reset --> reset chat&#10;
 +gen YOUR PROMPT --> free single-round generation with any prompt. use \\n for new line.&#10;
@@ -132,4 +134,7 @@ Source code need to modify their own chat.py file, this software can be started 
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Quantize">Quantization Model</sys:String>
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Run">Start RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Stop">Stop RWKV.cpp</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_ConverterRwkv2Bin">RWKV Model to CPP Model</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_ConverterParam">Model parameter</sys:String>
+    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_ConverteModelName">Rwkv model path to be transformed</sys:String>
 </ResourceDictionary>

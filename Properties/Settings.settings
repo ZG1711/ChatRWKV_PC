@@ -62,5 +62,8 @@
     <Setting Name="FontFamilyName" Type="System.String" Scope="User">
       <Value Profile="(Default)">新宋体</Value>
     </Setting>
+    <Setting Name="Cpp_LANGUAGE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Chinese</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -14,6 +14,13 @@ Raven model: suitable for direct chat, suitable for +i instructions. There are m
 Novel-chneng model: Chinese and English Novel model, can use +gen to generate world Settings (if you can write prompt, you can control the following plot and characters), can write science fiction and fantasy. Not suitable for chat, not suitable for +i commands. &#10;
 Novel-Chn model: Pure Chinese net text model, can only use +gen to continue the net text (can not generate world Settings and so on), but write the net text to write better (also smaller white text, suitable for writing male frequency female frequency). Not suitable for chat, not suitable for +i commands. &#10;
 Novel-chneng-chnpro model: Fine-tune Novel-ChnEng on high-quality works (classics, sci-fi, fantasy, classics, translations, etc.).</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadRaven">Raven model: suitable for direct chat, suitable for +i instructions</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadNovelChnEng">Novel-chneng Chinese and English Novel model, can use +gen to generate world Settings</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadNovelChn">Novel-Chn Pure Chinese Web text model, can only use +gen to continue web text (can not generate world Settings, etc.)</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadNovelChnEngChnPro">Novel-chneng-chnpro fine-tunes Novel-ChnEng in high-quality works</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadError">Warning: You are using an unknown model. Do not change the filename after downloading the model. Using the wrong model will seriously affect the generation effect.</sys:String>
+    <sys:String x:Key="Lang_MainView_Dialog_RavenSendGenError">The Raven model is not suitable for the +gen instruction</sys:String>
+    <sys:String x:Key="Lang_MainView_Dialog_NovelSendIError">The Novel model is not suitable for the +i instruction</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME_Placeholder">drag in file</sys:String>
     <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
     <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>

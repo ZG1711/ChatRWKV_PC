@@ -14,6 +14,13 @@ Raven 模型：适合直接聊天，适合 +i 指令。有很多种语言的版�
 Novel-ChnEng 模型：中英文小说模型，可以用 +gen 生成世界设定（如果会写 prompt，可以控制下文剧情和人物），可以写科幻奇幻。不适合聊天，不适合 +i 指令。&#10;
 Novel-Chn 模型：纯中文网文模型，只能用 +gen 续写网文（不能生成世界设定等等），但是写网文写得更好（也更小白文，适合写男频女频）。不适合聊天，不适合 +i 指令。&#10;
 Novel-ChnEng-ChnPro 模型：将 Novel-ChnEng 在高质量作品微调（名著，科幻，奇幻，古典，翻译，等等）。</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadRaven">Raven 模型：适合直接聊天，适合 +i 指令</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadNovelChnEng">Novel-ChnEng 中英文小说模型，可以用 +gen 生成世界设定</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadNovelChn">Novel-Chn 纯中文网文模型，只能用 +gen 续写网文（不能生成世界设定等等）</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadNovelChnEngChnPro">Novel-ChnEng-ChnPro 将 Novel-ChnEng 在高质量作品微调</sys:String>
+    <sys:String x:Key="Lang_MainView_TextBlock_LoadError">警告：你正在使用未知模型。下载模型后请勿修改文件名。使用错误模型将严重影响生成效果。</sys:String>
+    <sys:String x:Key="Lang_MainView_Dialog_RavenSendGenError">Raven模型不适合使用+gen指令</sys:String>
+    <sys:String x:Key="Lang_MainView_Dialog_NovelSendIError">Novel模型不适合使用+i指令</sys:String>
     <sys:String x:Key="Lang_MODEL_NAME_Placeholder">可拖入文件到本文本框自动处理</sys:String>
     <sys:String x:Key="Lang_Strategy">Strategy</sys:String>
     <sys:String x:Key="Lang_CHAT_LANG">CHAT_LANG</sys:String>
@@ -144,9 +151,6 @@ Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Run">运行RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_Stop">停止RWKV.cpp</sys:String>
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_ConverterRwkv2Bin">RWKV模型转CPP模型</sys:String>
-    <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_">RWKV模型转CPP模型</sys:String>
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_ConverterParam">模型转换参数</sys:String>
     <sys:String x:Key="Lang_MainWindowButton_RWKV_cpp_ConverteModelName">待转换Rwkv模型路径</sys:String>
-    
-    
 </ResourceDictionary>
